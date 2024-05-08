@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
+import Products from "../Screens/Products";
 
 export default function index() {
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <Products></Products>
   );
 }
 
