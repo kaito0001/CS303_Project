@@ -19,8 +19,9 @@ import Buttton from '../../../../../../components/buttton/Buttton';
 // icons library import
 import IconLibrary from "../../../../../../components/icons/icons";
 
-// auth import from firebase
+// firebase functions import
 import { auth } from "../../../../../../firebase/config";
+import { getUser, editUser } from '../../../../../../firebase/users';
 
 
 const EditName = () => {
@@ -33,14 +34,30 @@ const EditName = () => {
     
     // useStates
     const [name, setName] = useState('Sherif Omar');
+    const [newName, setNewName] = useState();
+    const [userData, setUserData] = useState();
     
     // icons import from library
     const UserIcon = IconLibrary['user'];
     
     // functions
     const handleUpdateName = () => {
+        editUser(uid, {...userData, name: newName}).then(() => {
+            setName(newName);
+        })
         // ..........
     }
+
+    // get user's data
+    const getUserData = async () => {
+        const userData = await getUser(uid);
+        setUserData(userData)
+        setName(userData.name);
+        setNewName(userData.name)
+    }
+    useEffect(() => {
+        getUserData();
+    },[])
     
     
     return (
@@ -69,8 +86,8 @@ const EditName = () => {
                 <TextInput
                     style={[EditStyle.textInput, Platform.OS === 'web' && EditStyle.webTextInput]}
                     placeholderTextColor="#99a4b4"
-                    onChangeText={setName}
-                    value={name}
+                    onChangeText={setNewName}
+                    value={newName}
                 />
             </View>
             

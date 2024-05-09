@@ -18,6 +18,11 @@ import RegisterStyle from './stylesheets/Stylesheet';
 import Header from '../../../components/header/Header';
 import Buttton from '../../../components/buttton/Buttton';
 
+// firebase functions import
+import { auth } from '../../../firebase/config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addUser } from '../../../firebase/users';
+
 // icons import
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,11 +36,31 @@ const Register = () => {
     // useStates
     const [hide, setHide] = useState(true);
     const [register, setRegister] = useState();
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [password, setPassword] = useState();
     
     // functions
-    const handleRegister = () => {
-        setRegister(!register)
-        // ..........
+    const handleRegister = async () => {
+        setRegister(!register);
+
+        // add the user to the authentication
+        await createUserWithEmailAndPassword(auth, email, password).then( async (userCredentials) => {
+            console.log('user created');
+            const user = {
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                id: userCredentials.user.uid,
+            };
+            // create new object (user) and add it to users collection in firestore
+            await addUser(user, userCredentials.user.uid);
+            router.replace('auth/login');
+        }).catch((error) => console.error(error))
+        // ! error handling
+
+        // ? finished or needs something else
     }
     
     return (
@@ -53,6 +78,8 @@ const Register = () => {
                             style={[RegisterStyle.textInput, Platform.OS === 'web' && RegisterStyle.webTextInput]}
                             placeholder="Full Name"
                             placeholderTextColor="#99a4b4"
+                            onChangeText={setName}
+                            value={name}
                         />
                     </View>
                     <View style={RegisterStyle.inputContainer}>
@@ -61,6 +88,8 @@ const Register = () => {
                             style={[RegisterStyle.textInput, Platform.OS === 'web' && RegisterStyle.webTextInput]}
                             placeholder="Email"
                             placeholderTextColor="#99a4b4"
+                            onChangeText={(text) => setEmail(text.trim())}
+                            value={email}
                         />
                     </View>
                     <View style={RegisterStyle.inputContainer}>
@@ -69,6 +98,8 @@ const Register = () => {
                             style={[RegisterStyle.textInput, Platform.OS === 'web' && RegisterStyle.webTextInput]}
                             placeholder="Phone Number"
                             placeholderTextColor="#99a4b4"
+                            onChangeText={setPhoneNumber}
+                            value={phoneNumber}
                         />
                     </View>
                     <View style={[RegisterStyle.inputContainer, {marginBottom: 30}]}>
@@ -78,6 +109,8 @@ const Register = () => {
                             placeholder="Password"
                             placeholderTextColor="#99a4b4"
                             secureTextEntry={hide}
+                            onChangeText={setPassword}
+                            value={password}
                         />
                         <Pressable onPress={() => setHide(!hide)}>
                             {hide ? (

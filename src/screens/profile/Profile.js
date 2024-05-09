@@ -15,8 +15,9 @@ import Choice from '../../components/choice/Choice';
 import Login from './components/login/Login';
 import Account from './components/account/Account';
 
-// auth import from firebase
+// firebase functions import
 import { auth } from "../../firebase/config";
+import { getUser } from '../../firebase/users';
 
 const Profile = () => {
     
@@ -28,11 +29,21 @@ const Profile = () => {
 
     // useStates
     const [isLogin, setIsLogin] = useState(uid !== undefined);
+    const [userData, setUserData] = useState();
     
     // functions
     const handleCallBack = useCallback( (bool) => {
        setIsLogin(bool);
     }, []);
+
+    // get user's data
+    useEffect(() => {
+        const getUserData = async () => {
+            const userData = await getUser(uid);
+            setUserData(userData);
+        }
+        getUserData();
+    },[])
 
     return (
         <View style={ProfileStyle.container}>
