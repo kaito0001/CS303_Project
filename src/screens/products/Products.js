@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, TextInput, View, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
+import {router, useLocalSearchParams} from "expo-router";
 import ProductItem from "../../components/product/Product";
 import Header from "../../components/header/Header"
 import ProductsStyle from "./stylesheets/Stylesheets";
@@ -7,19 +8,17 @@ import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBy
 
 
 
-const Products= ({category}) =>{
+const Products= () =>{
+  const { categoryName } = useLocalSearchParams();
+  const [cname] = useState(categoryName);
   const [data, setData] = useState([]);
 
 
+
+
   const getProducts =async() => {
-    if(category){
-      const prod =await getProductsByCategory(category);
-      setData(prod);
-    }else{
-      const prod =await getDocsFunc('products');
-      setData(prod);
-    }
-    
+    const prod =await getProductsByCategory(cname);
+    setData(prod);
 
 }
   useEffect(() => {
@@ -32,7 +31,7 @@ const Products= ({category}) =>{
   return (
     <View style={ProductsStyle.Container}>
 
-            <Header showSearch={true}/>
+            <Header title={'PROFILE'}/>
 
             <FlatList
              style={ProductsStyle.list}
@@ -40,9 +39,7 @@ const Products= ({category}) =>{
             numColumns={2}
             // keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <ProductItem
-                product={item}
-               />
+                <ProductItem product={item}/>
             )}
              />
             
