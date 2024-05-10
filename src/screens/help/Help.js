@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { router } from 'expo-router';
 import {
     View,
+    StatusBar
 } from 'react-native';
 
 // global components import
@@ -18,6 +19,8 @@ const Help = () => {
             
             <Choice title={'Contact Us'} icon={'contactUs'}></Choice>
             
+            <StatusBar backgroundColor="#001b46"/>
+
         </View>
     )
 }

@@ -10,7 +10,7 @@ const Product= ({product}) =>{
   const [liked,setLiked]=useState(false);
   const handlePressed= ()=>{
     Alert.alert(' product id',product.id);
-    // router.replace(`about`)
+    router.replace(`product/${product.id}`);
   }
   const handleLikePressed= ()=>{
     if(liked){ 
@@ -18,9 +18,9 @@ const Product= ({product}) =>{
     }
     else setLiked(true);
   }
-
+  if(product.isAvailable){
   return (
-      <Pressable style={ProductStyle.Container} onPress={()=> router.replace(`product?id=${product.id}`)}>
+      <Pressable style={ProductStyle.Container} onPress={()=> handlePressed()}>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
           {
             liked? <Entypo name="heart" size={24} color="red" />:<Entypo name="heart-outlined" size={24} color="black" />
@@ -48,6 +48,7 @@ const Product= ({product}) =>{
       </View>
       </Pressable>
   );
+  }
 }
 export default Product;
 

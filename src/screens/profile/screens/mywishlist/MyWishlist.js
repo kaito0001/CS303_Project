@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import {
     View,
     Text,
+    StatusBar
 } from 'react-native';
 
 // global components import
@@ -41,6 +42,8 @@ const MyWishlist = () => {
                 <View style={{paddingHorizontal: '6%'}}>
                     <Buttton title={'Browser Products'} main={true}></Buttton>
                 </View>
+
+                <StatusBar backgroundColor="#001b46"/>
             </View>
         )
     }

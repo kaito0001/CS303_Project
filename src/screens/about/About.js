@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { router } from 'expo-router';
 import {
     View,
+    StatusBar
 } from 'react-native';
 
 // global components import
@@ -20,6 +21,8 @@ const About = () => {
             
             <Choice title={'Privacy Policy'} icon={'privacy'} onPress={() => router.replace('privacy')}></Choice>
             
+            <StatusBar backgroundColor="#001b46"/>
+
         </View>
     )
 }

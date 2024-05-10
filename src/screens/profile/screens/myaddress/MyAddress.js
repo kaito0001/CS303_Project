@@ -4,6 +4,7 @@ import {
     View,
     Text,
     FlatList,
+    StatusBar,
 } from 'react-native';
 
 // global components import
@@ -76,6 +77,8 @@ const MyAddress = () => {
                 <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>
                     <Buttton title={'Add Address'} main={true} onPress={() => router.replace(`account/address/new`)}></Buttton>
                 </View>
+
+                <StatusBar backgroundColor="#001b46"/>
             </View>
         )
     }
