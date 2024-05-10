@@ -8,7 +8,20 @@ const ProductsStyle = StyleSheet.create({
     list:{
         flex:1,
         backgroundColor: '#f8f8fa'
-    }
+    },
+    header: {
+        backgroundColor: '#001b46',
+        paddingVertical: 20,
+        borderBottomStartRadius: 15,
+        borderBottomEndRadius: 15,
+        alignItems: 'center',
+    },
+    box: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        width: '90%', borderRadius: 5
+        
+    },
     
 })
 

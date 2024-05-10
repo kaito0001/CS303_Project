@@ -5,39 +5,58 @@ import ProductItem from "../../components/product/Product";
 import Header from "../../components/header/Header"
 import ProductsStyle from "./stylesheets/Stylesheets";
 import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBysubCategory, addProduct } from "../../firebase/firestore";
-
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Products= () =>{
   const { categoryName } = useLocalSearchParams();
   const [cname] = useState(categoryName);
-  const [data, setData] = useState([]);
-
-
+  const [allProducts, setallProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
 
 
   const getProducts =async() => {
     const prod =await getProductsByCategory(cname);
-    setData(prod);
+    setProducts(prod);
+    setallProducts(prod);
 
 }
   useEffect(() => {
     getProducts();
   }, []);
  
-
+  const searchItems = (searchFor) => {
+    const filteredProducts = allProducts.filter((product) => {
+        return product.title.includes(searchFor);
+    });
+    setProducts(filteredProducts);
+};
   
 
   return (
     <View style={ProductsStyle.Container}>
 
-            <Header title={'PROFILE'}/>
+      <View style={ProductsStyle.header}>
+         <View style={ProductsStyle.box}>
+             <Ionicons name="search-circle-outline" size={40} color="black" />
+                                    <TextInput
+                                    style={ProductsStyle.input}
+                                    placeholder="search for products "
+                                    onChangeText={(text) => {
+                                        setSearch(text);
+                                        searchItems(text);
+                                    }}
+                                    value={search}
+                                    />
+                                </View>
+                </View>
 
             <FlatList
              style={ProductsStyle.list}
-            data={data}
+            data={products}
             numColumns={2}
-            // keyExtractor={(item) => item.id}
+           
             renderItem={({ item }) => (
                 <ProductItem product={item}/>
             )}

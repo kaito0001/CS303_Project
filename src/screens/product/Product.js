@@ -11,13 +11,11 @@ import IconLibrary from '../../components/icons/icons';
 const screenwidth = Dimensions.get('window').width;
 const screenheight = Dimensions.get('window').height;
 
-const Product= (id) =>{
+const Product= ({id}) =>{
   const [item, setItem] = useState([]);
   const [simprod, setSimProd] = useState([]);
   const [liked,setLiked]=useState(false);
-
   const IconComponent = IconLibrary['back'];
-   id='zRZZ9F9JeYGO0Koz36IN';
 
    let uid;
    if ( auth.currentUser ) {

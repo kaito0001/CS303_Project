@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Intro from '../screens/intro/Intro';
 import Product from '../../src/screens/product/Product';
 import { auth } from '../firebase/config';
-
+import CategoryPage from '../screens/categories/CategoryPage'
 const Page = () => {
     
     // get current user
@@ -27,7 +27,8 @@ const Page = () => {
     
     return (
         // <Intro />
-        <Product/>
+        // <Product/>
+        <CategoryPage/>
     );
 }
 

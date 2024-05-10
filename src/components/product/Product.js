@@ -10,7 +10,7 @@ const Product= ({product}) =>{
   const [liked,setLiked]=useState(false);
   const handlePressed= ()=>{
     Alert.alert(' product id',product.id);
-    // router.replace(``)
+    router.replace(`product/${product.id}`);
   }
   const handleLikePressed= ()=>{
     if(liked){ 

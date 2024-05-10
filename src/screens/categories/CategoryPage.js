@@ -19,14 +19,6 @@ import { getDocsFunc } from '../../firebase/firestore';
 import { Ionicons } from '@expo/vector-icons';
 
 
-// const DATA = [
-//     { id : 1,name: "mobile and tablet ", img: tablet },
-//     { id : 2,name: "televisions ", img: "https://rayashop.hypernode.io/media/catalog/category/tv_home_theater_2x.png" },
-//     { id : 3,name: "large appliances ", img: "https://rayashop.hypernode.io/media/catalog/category/large_appliances_2x.png" },
-//     { id : 4,name: "small appliances ", img: "https://rayashop.hypernode.io/media/catalog/category/small_appliances_2x.png" },
-//     { id : 5,name: "Kitchen Appliances ", img: "https://rayashop.hypernode.io/media/catalog/category/kitchen_appliances_2x.png" },
-// ];
-
 const CategoryPage = () => {
 
     const [pressed, setPressed] = useState(false);
@@ -72,7 +64,7 @@ const CategoryPage = () => {
 
     const searchItems = (searchFor) => {
         const filteredProducts = allProducts.filter((product) => {
-            return product.some((title) => title.includes(searchFor));
+            return product.title.includes(searchFor);
         });
         setProducts(filteredProducts);
     };
@@ -103,8 +95,7 @@ const CategoryPage = () => {
                 <FlatList
                     style={categoryStyle.list}
                     data={products}
-                    numColumns={2}
-                    // keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <ProductItem product={item}/>
                     )}
@@ -116,7 +107,7 @@ const CategoryPage = () => {
                     renderItem={({ item }) => (
                             <Category name={item.category} img={item.image} />
                     )}
-                    keyExtractor={(item) => item.category} // Convert id to string
+                    keyExtractor={(item) => item.category} 
                     />  
             )}
 
