@@ -104,7 +104,7 @@ const getSimProd =async() => {
         </View>
         
         <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text>
-        {/* <FlatList
+        <FlatList
         data={simprod}
         renderItem={({ item }) => (
           <ProductItem product={item}/>
@@ -115,7 +115,7 @@ const getSimProd =async() => {
         showsHorizontalScrollIndicator={false}
         initialNumToRender={6} 
         
-        /> */}
+        />
         </ScrollView>
 
 
