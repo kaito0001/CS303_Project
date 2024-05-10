@@ -13,60 +13,34 @@ import {
     setDoc
 } from 'firebase/firestore';
 
-async function getDocFunc ( Collection, Doc ) {
+const productsRef = collection(db, 'products');
+
+const getDocFunc = async ( Collection, Doc ) => {
     const docRef = doc(db, Collection, Doc);
     return (await getDoc(docRef)).data();
 }
 
-async function updateDocFunc ( Collection, Doc, Update ) {
+const updateDocFunc = async ( Collection, Doc, Update ) => {
     const documentRef = doc(db, Collection, Doc);
     await updateDoc(documentRef, Update);
 }
 
-async function deleteDocFunc ( Collection, Doc ) {
+const deleteDocFunc = async ( Collection, Doc ) => {
     const documentRef = doc(db, Collection, Doc);
     await deleteDoc(documentRef);
 }
 
-async function addProduct(docData){
-    const productsRef = collection(db, 'products');
-    const docRef = doc(productsRef);
-    await setDoc(docRef, docData);
-}
-
-async function getProductsByCategory(category){
-    const q = query(collection(db, 'products'),where("category","==",category));
-    const querySnapshot = await getDocs(q);
-    const docs = [];
-    querySnapshot.forEach((doc) => {
-        docs.push( doc.data() );
-    });
-
-    return docs;
-}
-
-async function getProductsBysubCategory(category){
-    const q = query(collection(db, 'products'),where("subcategory","==",category));
-    const querySnapshot = await getDocs(q);
-    const docs = [];
-    querySnapshot.forEach((doc) => {
-        docs.push( doc.data() );
-    });
-
-    return docs;
-}
-
-async function addDocFunc ( coll, docData ) {
+const addDocFunc = async ( coll, docData ) =>{
     const docRef = collection(db, coll);
     await addDoc(docRef, docData);
 }
 
-async function setDocFunc ( coll, docData, docId ) {
+const setDocFunc = async( coll, docData, docId ) => {
     const docRef = doc(db, coll, docId);
     await setDoc(docRef, docData);
 }
 
-async function getDocsFunc ( coll ) {
+const getDocsFunc= async ( coll ) => {
     const collectionRef = collection(db, coll);
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
@@ -77,4 +51,48 @@ async function getDocsFunc ( coll ) {
     return docData;
 }
 
-export { getDocFunc, updateDocFunc, deleteDocFunc, setDocFunc, getDocsFunc, addDocFunc, addProduct, getProductsByCategory ,getProductsBysubCategory};
+const addProduct = async (docData) =>{
+    const newDoc =await addDoc(productsRef, docData);
+    await updateDoc(doc(productsRef, newDoc.id), {
+        id: newDoc.id
+    });
+}
+
+const  getProduct= async(id) =>{
+    const q = query(productsRef,where("id","==",id));   
+    const data = await getDocs(q);
+    return {...data.docs[0].data() , id: data.docs[0].id};
+}
+const  getProductsByCategory= async(category) =>{
+    const q = query(productsRef,where("category","==",category));
+    const querySnapshot = await getDocs(q);
+    const docs = [];
+    querySnapshot.forEach((doc) => {
+        docs.push( doc.data() );
+    });
+    return docs;
+}
+
+const getProductsBysubCategory= async(subcategory) =>{
+    const q = query(productsRef,where("subcategory","==",subcategory));
+    const querySnapshot = await getDocs(q);
+    const docs = [];
+    querySnapshot.forEach((doc) => {
+        docs.push( doc.data() );
+    });
+    return docs;
+}
+
+
+
+export {getDocFunc,
+        updateDocFunc,
+        deleteDocFunc,
+        setDocFunc,
+        getDocsFunc,
+        addDocFunc,
+        addProduct,
+        getProductsByCategory,
+        getProductsBysubCategory,
+        getProduct
+    };
