@@ -15,6 +15,7 @@ import {
 
 const productsRef = collection(db, 'products');
 
+
 const getDocFunc = async ( Collection, Doc ) => {
     const docRef = doc(db, Collection, Doc);
     return (await getDoc(docRef)).data();
@@ -40,6 +41,8 @@ const setDocFunc = async( coll, docData, docId ) => {
     await setDoc(docRef, docData);
 }
 
+
+
 const getDocsFunc= async ( coll ) => {
     const collectionRef = collection(db, coll);
     const q = query(collectionRef);
@@ -57,6 +60,7 @@ const addProduct = async (docData) =>{
         id: newDoc.id
     });
 }
+
 
 const  getProduct= async(id) =>{
     const q = query(productsRef,where("id","==",id));   
@@ -77,6 +81,8 @@ const  getProductsByCategory= async(category) =>{
 
 
 
+
+
 export {getDocFunc,
         updateDocFunc,
         deleteDocFunc,
@@ -85,5 +91,5 @@ export {getDocFunc,
         addDocFunc,
         addProduct,
         getProductsByCategory,
-        getProduct
+        getProduct,
     };
