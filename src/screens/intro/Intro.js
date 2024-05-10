@@ -10,7 +10,7 @@ const Intro = () => {
     return (
         <View style={IntroStyle.container}>
             <Text style={IntroStyle.text}>RAYA</Text>
-            <StatusBar style="auto" backgroundColor="#000"/>
+            <StatusBar style="auto" backgroundColor="#006cb7"/>
         </View>
     );
 }
