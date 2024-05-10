@@ -22,7 +22,26 @@ const headerStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    input: {
+        flex: 1,
+        height: 40,
+        borderColor: 'white',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginRight: 10,
+        padding: 10,
+
+    },
+    box: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        width: '90%',
+        borderRadius: 5,
+        marginTop : 10
+        
     }
+
 })
 
 export default headerStyle;
