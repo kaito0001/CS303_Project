@@ -13,6 +13,7 @@ import Buttton from '../../../../components/buttton/Buttton';
 
 // auth import from firebase
 import { auth } from "../../../../firebase/config";
+import { getWishList } from '../../../../firebase/firestore';
 
 const MyWishlist = () => {
     
@@ -24,6 +25,24 @@ const MyWishlist = () => {
     
     // useStates
     const [wishlist, setWishlist] = useState([]);
+
+    // useEffect
+    useEffect(() => {
+        fetchWishList();
+        }, []);
+    
+    
+        // functions
+        const fetchWishList = async () => {
+        try {
+            const wishlistData = await getWishList(uid);
+            
+            setWishlist(wishlistData);
+            
+        } catch (error) {
+            console.error(error);
+        }
+        }
     
     
     if (wishlist.length === 0) {
@@ -54,7 +73,7 @@ const MyWishlist = () => {
                 <FlatList
                                 style={styles.list}
                                 
-                                data={DATA}
+                                data={wishlist}
                                 renderItem={({ item }) => (
                                     
                                     <Product product={item}></Product>
