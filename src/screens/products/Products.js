@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, TextInput, View, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
+import {router, useLocalSearchParams} from "expo-router";
 import ProductItem from "../../components/product/Product";
 import Header from "../../components/header/Header"
 import ProductsStyle from "./stylesheets/Stylesheets";
@@ -8,13 +9,15 @@ import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBy
 
 
 const Products= () =>{
+  const { categoryName } = useLocalSearchParams();
+  const [cname] = useState(categoryName);
   const [data, setData] = useState([]);
 
 
 
 
   const getProducts =async() => {
-    const prod =await getDocsFunc('products');
+    const prod =await getProductsByCategory(cname);
     setData(prod);
 
 }
@@ -36,12 +39,7 @@ const Products= () =>{
             numColumns={2}
             // keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <ProductItem
-                product={item}
-                //         onPress={() => router.navigate(`/product/${product.id}`)}
-                //      onConfirm={() => AddToCart(product.id)}
-                //     onDelete={() => deleteFromCart(product.id)}
-               />
+                <ProductItem product={item}/>
             )}
              />
             
