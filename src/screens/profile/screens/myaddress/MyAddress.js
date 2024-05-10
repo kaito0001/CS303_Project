@@ -72,11 +72,7 @@ const MyAddress = () => {
     //     deleteAddress(uid, addressId);
     //     fetchAddresses();
     // }
-    
-
-    const addAddressHandler = () => {
-
-    }
+   
     
     if (addresses.length === 0) {
         return (
