@@ -20,7 +20,7 @@ import Buttton from '../../../components/buttton/Buttton';
 
 // firebase functions import
 import { auth } from '../../../firebase/config';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 // icons import
 import { AntDesign } from '@expo/vector-icons';
@@ -34,26 +34,39 @@ const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [login, setLogin] = useState(false);
+    const [isValid, setIsValid] = useState(true);
     
     // functions
     const handleLogin = () => {
-        setLogin(!login);
-        signInWithEmailAndPassword(auth, email, password).then(async (userCredentials) => {
-            const user = await getUser(userCredentials.user.uid);
-            if(!user.isAdmin){
-                // normal user routing...
-                router.replace("/profile")
-            }
-            else{
-                // admin routing...
-            }
-        }).catch((error) => console.error(error))
+        if(!email || !password){
+            setIsValid(false);
+            setLogin(false);
+        }
+        else{
+            setLogin(!login);
+            signInWithEmailAndPassword(auth, email, password).then(async (userCredentials) => {
+                const user = await getUser(userCredentials.user.uid);
+                if(!user.isAdmin){
+                    // normal user routing...
+                    router.replace("/profile")
+                }
+                else{
+                    // admin routing...
+                }
+            }).catch((error) => {
+                setIsValid(false);
+                setLogin(false)
+                console.error(error);
+            })
+        }
         // ! error handling
 
         // ? finished or needs something else
     }
     
-    const handleGoogleSignIn =() => {
+    const handleGoogleSignIn = async () => {
+        // const provider = new GoogleAuthProvider();
+        // return signInWithPopup(auth, provider).catch((error) => console.error(error))
         // ..........
     }
     
@@ -106,9 +119,18 @@ const Login = () => {
                             )}
                         </Pressable>
                     </View>
-                    <Pressable onPress={() => router.replace('auth/forgotpassword')}>
-                        <Text style={LoginStyle.forgotPass} >Forgot password?</Text>
-                    </Pressable>
+                    <View style={{ justifyContent: "space-between" }}>
+                        <View style={{ width: 16 }}></View>
+                        {!isValid && 
+                            <View style={LoginStyle.emailAlert}>
+                                <AntDesign name="warning" size={24} color="red" />
+                                <Text style={{color: 'red', marginLeft: 5}}>Invalid Email Address</Text>
+                            </View>
+                        }
+                        <Pressable onPress={() => router.replace('auth/forgotpassword')}>
+                            <Text style={LoginStyle.forgotPass} >Forgot password?</Text>
+                        </Pressable>
+                    </View>
                     {login ? (
                         <ActivityIndicator style={{marginTop: 25}} size="large" color="#001b46"/>
                     ) : (

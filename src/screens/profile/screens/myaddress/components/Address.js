@@ -12,7 +12,10 @@ import AddressStyle from "./stylesheets/Stylesheet";
 // icons library import
 import IconLibrary from "../../../../../components/icons/icons";
 
-const Address = ({address}) => {
+// firebase functions import
+import { deleteAddress } from '../../../../../firebase/address';
+
+const Address = ({address, userId}) => {
     
     // icons import from library
     const UserIcon = IconLibrary['user'];
@@ -21,6 +24,12 @@ const Address = ({address}) => {
     const EditIcon = IconLibrary['edit'];
     const DeleteIcon = IconLibrary['delete'];
     
+    // functions
+    const deleteHandler = () => {
+        deleteAddress(userId, address.id).then(() => {
+            router.replace("account/addresses")
+        }) 
+    }
     
     
     return (
@@ -54,12 +63,12 @@ const Address = ({address}) => {
             </View>
             
             <View style={AddressStyle.buttons}>
-                <Pressable style={AddressStyle.button} onPress={() => router.replace(`account/address/edit`)}>
+                <Pressable style={AddressStyle.button} onPress={() => router.replace(`account/address/edit?addressId=${address.id}`)}>
                     <EditIcon/>
                     <Text style={{color:'#0041cf', marginLeft: 10}}>Edit Address</Text>
                 </Pressable>
 
-                <Pressable style={AddressStyle.button}>
+                <Pressable style={AddressStyle.button} onPress={deleteHandler}>
                     <DeleteIcon/>
                     <Text style={{color:'red', marginLeft: 10}}>Delete Address</Text>
                 </Pressable>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { router } from 'expo-router';
+import React, { useState, useEffect, useCallback } from 'react';
+import { router, useFocusEffect } from 'expo-router';
 import {
     View,
     Text,
@@ -13,11 +13,13 @@ import Buttton from '../../../../components/buttton/Buttton';
 // local components import
 import Address from "./components/Address";
 
-// auth import from firebase
+// firebase functions import
 import { auth } from "../../../../firebase/config";
+import { deleteAddress, getAddresses } from '../../../../firebase/address';
 
 // fake data
 const testAddress = {
+    id: Math.random().toString(),
     name: 'Sherif Omar',
     phoneNumber: '01145902559',
     address: {
@@ -41,13 +43,44 @@ const MyAddress = () => {
     }
     
     // useStates
-    const [address, setAddress] = useState([testAddress]);
+    const [addresses, setAddresses] = useState([testAddress]);
     
+    // functions
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            const addressesList = await getAddresses(uid);
+            if(addressesList){
+                setAddresses(addressesList);
+            }
+        }
+        fetchAddresses();
+    },[]);
+    // const fetchAddresses = async () => {
+    //     const addressesList = await getAddresses(uid);
+    //     if(addressesList){
+    //         setAddresses(addressesList);
+    //     }
+    // }
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         fetchAddresses();
+    //     }, [])
+    //   );
+
+    // const onDeleteHandler = async (addressId) => {
+    //     deleteAddress(uid, addressId);
+    //     fetchAddresses();
+    // }
     
-    if (address.length === 0) {
+
+    const addAddressHandler = () => {
+
+    }
+    
+    if (addresses.length === 0) {
         return (
             <View>
-                <Header title={'MY ADDRESS BOOK' + ' ' + `(${address.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ADDRESS BOOK' + ' ' + `(${addresses.length})`} onBackPress={() => router.replace(`profile`)}></Header>
                 
                 <View style={{padding: '6%', alignItems: 'center'}}>
                     <Text>
@@ -66,11 +99,11 @@ const MyAddress = () => {
     } else {
         return (
             <View>
-                <Header title={'MY ADDRESS BOOK' + ' ' + `(${address.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ADDRESS BOOK' + ' ' + `(${addresses.length})`} onBackPress={() => router.replace(`profile`)}></Header>
                 <FlatList
-                    data={address}
+                    data={addresses}
                     renderItem={({item}) =>
-                            <Address address={item}/>
+                            <Address address={item} userId={uid}/>
                     }
                 />
                 <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>
