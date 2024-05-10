@@ -54,9 +54,7 @@ const ProductStyle = StyleSheet.create({
         alignItems:'center',
         marginVertical:15
     },
-    button:{
-    //   marginTop:10
-    },
+    
     descriptionField:{
         margin:15,
         marginTop:'20%',
@@ -77,7 +75,11 @@ const ProductStyle = StyleSheet.create({
     description:{
         color:'#00155f'
     },
-    
+    textSimilar:{
+        fontSize:18,
+        fontWeight:'bold',
+        margin:10,
+    },
     list:{
         flex:1,
         backgroundColor: '#f8f8fa'

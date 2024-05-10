@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Entypo ,AntDesign,Ionicons} from '@expo/vector-icons';
 import ProductItem from '../../components/product/Product'
 import ProductStyle from "./stylesheets/Stylesheets";
-import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBysubCategory, addProduct, getProduct } from "../../firebase/products";
+import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBysubCategory, addProduct, getProduct } from "../../firebase/firestore";
 import Buttton from "../../components/buttton/Buttton";
 
 
@@ -104,7 +104,7 @@ const getSimProd =async() => {
         </View>
         
         <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text>
-        <FlatList
+        {/* <FlatList
         data={simprod}
         renderItem={({ item }) => (
           <ProductItem product={item}/>
@@ -115,7 +115,7 @@ const getSimProd =async() => {
         showsHorizontalScrollIndicator={false}
         initialNumToRender={6} 
         
-        />
+        /> */}
         </ScrollView>
 
 
