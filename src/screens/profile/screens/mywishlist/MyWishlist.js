@@ -3,7 +3,8 @@ import { router } from 'expo-router';
 import {
     View,
     Text,
-    StatusBar
+    StatusBar,
+    StyleSheet
 } from 'react-native';
 
 // global components import
@@ -46,7 +47,36 @@ const MyWishlist = () => {
                 <StatusBar backgroundColor="#001b46"/>
             </View>
         )
+    }else {
+        return (
+            <View style = {{flex : 1}}>
+                <Header title={'WISHLIST' + ' ' + `(${wishlist.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <FlatList
+                                style={styles.list}
+                                
+                                data={DATA}
+                                renderItem={({ item }) => (
+                                    
+                                    <Product product={item}></Product>
+                                )}
+                            />
+                
+            </View>
+        )
+        
     }
 }
 
 export default MyWishlist;
+
+
+const styles = StyleSheet.create({
+    list: {
+            padding: '5%', 
+            margin : 10,
+            backgroundColor: '#fafcfb',
+            borderRadius: 10,
+
+    
+    },
+})

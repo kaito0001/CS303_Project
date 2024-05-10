@@ -26,7 +26,7 @@ const Cart = () => {
     const [cart, setCart] = useState([]);
     if (cart.length != 0) {
         return (
-            <View >
+            <View style={ {flex : 1} }>
 
                 <Header title={'MY CART' + ' ' + `(${cart.length})`} onBackPress={() => router.replace(`profile`)}></Header>
 
