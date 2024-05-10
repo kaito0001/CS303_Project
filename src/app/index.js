@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import Intro from '../screens/intro/Intro';
 
 import { auth } from '../firebase/config';
+import Category from '../screens/categories/CategoryPage';
+import Cart from '../screens/cart/Cart';
+import Home from '../screens/home/Home';
 
 const Page = () => {
     
@@ -12,12 +15,12 @@ const Page = () => {
         uid = auth.currentUser.uid;
     }
     
-    // functions
+//    functions
     const fetchAsyncStorage = () => {
         if ( uid === undefined ) {
-            router.replace(`profile`);
+            router.replace(`home`);
         } else {
-            router.replace(`profile${uid}`);
+            router.replace(`home${uid}`);
         }
     }
     
