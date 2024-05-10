@@ -21,8 +21,18 @@ const productStyle = StyleSheet.create({
     },
 
     price: {
-        color: '#98aee3',
+        color: '#1c6fff',
         fontWeight: "bold",
+        fontSize : 15,
+        marginRight : 5
+        
+    },
+    oldPrice: {
+        color: 'gray',
+        fontSize: 8,
+        textDecorationLine: 'line-through',
+        
+        
         
     },
     qty: {

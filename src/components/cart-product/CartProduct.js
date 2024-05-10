@@ -11,6 +11,7 @@ import like from '../../../assets/favorite_40dp_FILL1_wght200_GRAD0_opsz40.png';
 import { EvilIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from "react";
+import { AntDesign } from '@expo/vector-icons';
 
 
 
@@ -29,20 +30,23 @@ const CartProduct = ({ price , discription, img}) => {
                     <Image src={img} style={productStyle.img}></Image>
                     <View style={{justifyContent : 'center'}}>
                         <Text style={{ fontSize: 10 }}>{discription}</Text>
-                        <Text style={ productStyle.price}>{price}</Text>
+                        <View style ={{flexDirection : 'row' ,alignItems :'center'}}>
+                        <Text style={productStyle.price}>{price}</Text>
+                            <Text style={productStyle.oldPrice}>{price}</Text>
+                            </View>
                     </View>
                 </Pressable>
                 <View style={productStyle.qty }>
                     <Text style={{ fontSize : 10 }}>QTY</Text>
                     <Pressable
                     >
-                        <EvilIcons name="minus" size={20} color="black" />
+                        <AntDesign name="minus" size={20} color="gray" />
 
                     </Pressable>
                     <Text style={ {fontWeight:'bold'}}> N </Text>
                     <Pressable
                     >
-                        <EvilIcons name="plus" size={20} color="black" />                       
+                        <AntDesign name="plus" size={20} color="gray" />                       
                     </Pressable>
 
                     
