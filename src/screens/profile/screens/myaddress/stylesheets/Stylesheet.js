@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const MainAddress = StyleSheet.create({
     inputContainer: {
         marginHorizontal: '6%',
-        padding: 18,
+        // padding: 18,
         marginTop: 30,
         flexDirection: 'row',
         alignItems: 'center',
@@ -13,6 +13,10 @@ const MainAddress = StyleSheet.create({
     },
     textInput: {
         borderRadius: 10,
+        marginVertical: 18,
+        paddingHorizontal: 18,
+        width: "100%",
+        height: "100%",
         color: '#001b46',
         fontSize: 14,
         fontWeight: '700',

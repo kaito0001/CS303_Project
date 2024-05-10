@@ -29,22 +29,28 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 const Register = () => {
     
     // useStates
     const [hide, setHide] = useState(true);
-    const [register, setRegister] = useState();
+    const [register, setRegister] = useState(false);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const [password, setPassword] = useState();
+    const [isValid, setIsValid] = useState(true)
     
     // functions
     const handleRegister = async () => {
-        setRegister(!register);
-
+        setRegister(true);
+        
+        if(!name || !email || !phoneNumber || !password){
+            setIsValid(false);
+            setRegister(false);
+        }
         // add the user to the authentication
         await createUserWithEmailAndPassword(auth, email, password).then( async (userCredentials) => {
             console.log('user created');
@@ -55,9 +61,14 @@ const Register = () => {
                 id: userCredentials.user.uid,
             };
             // create new object (user) and add it to users collection in firestore
-            await addUser(user, userCredentials.user.uid);
+            await addUser(user, userCredentials.user.uid)
             router.replace('auth/login');
-        }).catch((error) => console.error(error))
+        })
+        .catch((error) => {
+            setIsValid(false);
+            setRegister(false);
+            console.error(error);
+        })
         // ! error handling
 
         // ? finished or needs something else
@@ -120,6 +131,12 @@ const Register = () => {
                             )}
                         </Pressable>
                     </View>
+                    {!isValid && 
+                        <View style={RegisterStyle.emailAlert}>
+                            <AntDesign name="warning" size={24} color="red" />
+                            <Text style={{color: 'red', marginLeft: 5}}>Invalid Email Address</Text>
+                        </View>
+                    }
                     {register ? (
                         <ActivityIndicator style={{marginTop: 20}} size="large" color="#001b46"/>
                     ) : (
