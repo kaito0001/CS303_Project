@@ -30,7 +30,7 @@ const ProductStyle = StyleSheet.create({
         marginTop:10,
         width: 100,
         height: 100,
-        marginBottom:50,
+        marginBottom:20,
         
     },
     title: {
@@ -70,18 +70,21 @@ const ProductStyle = StyleSheet.create({
     },
     descriptionBox:{
         margin:10,
-        
+        padding:10
     },
     description:{
-        color:'#00155f'
+        color:'#00155f',
+        fontSize:15,
     },
     textSimilar:{
         fontSize:18,
         fontWeight:'bold',
         margin:10,
+        padding:10,
     },
     list:{
-        flex:1,
+        padding:10,
+        margin:10,
         backgroundColor: '#f8f8fa'
     },
 

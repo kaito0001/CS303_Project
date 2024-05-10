@@ -7,15 +7,21 @@ import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBy
 
 
 
-const Products= () =>{
+const Products= ({category}) =>{
   const [data, setData] = useState([]);
 
 
 
 
   const getProducts =async() => {
-    const prod =await getDocsFunc('products');
-    setData(prod);
+    if(category){
+      const prod =await getProductsByCategory(category);
+      setData(prod);
+    }else{
+      const prod =await getDocsFunc('products');
+      setData(prod);
+    }
+    
 
 }
   useEffect(() => {

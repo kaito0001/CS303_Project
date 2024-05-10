@@ -18,7 +18,7 @@ const Product= ({product}) =>{
     }
     else setLiked(true);
   }
-
+  if(product.isAvailable){
   return (
       <Pressable style={ProductStyle.Container} onPress={()=> handlePressed()}>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
@@ -48,6 +48,7 @@ const Product= ({product}) =>{
       </View>
       </Pressable>
   );
+  }
 }
 export default Product;
 
