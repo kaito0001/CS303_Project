@@ -19,7 +19,8 @@ const ProductStyle = StyleSheet.create({
         marginLeft:'10%'
     },
     box:{
-        flex:1,
+        // flex:1,
+        
         margin:15,
         backgroundColor: '#f8f8fa'
     },

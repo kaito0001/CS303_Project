@@ -11,8 +11,6 @@ const Products= ({category}) =>{
   const [data, setData] = useState([]);
 
 
-
-
   const getProducts =async() => {
     if(category){
       const prod =await getProductsByCategory(category);
@@ -34,7 +32,7 @@ const Products= ({category}) =>{
   return (
     <View style={ProductsStyle.Container}>
 
-            <Header title={'PROFILE'}/>
+            <Header showSearch={true}/>
 
             <FlatList
              style={ProductsStyle.list}

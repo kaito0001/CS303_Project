@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 const ProductStyle = StyleSheet.create({
     Container: {
-        flex:1,
+        // flex:1,
         backgroundColor:'#ffffff',
         margin:10,
         borderRadius:50,

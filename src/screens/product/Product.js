@@ -6,6 +6,7 @@ import ProductStyle from "./stylesheets/Stylesheets";
 import { getProductsByCategory, getProduct } from "../../firebase/firestore";
 import Buttton from "../../components/buttton/Buttton";
 import { auth } from "../../firebase/config";
+import IconLibrary from '../../components/icons/icons';
 
 const screenwidth = Dimensions.get('window').width;
 const screenheight = Dimensions.get('window').height;
@@ -14,6 +15,8 @@ const Product= (id) =>{
   const [item, setItem] = useState([]);
   const [simprod, setSimProd] = useState([]);
   const [liked,setLiked]=useState(false);
+
+  const IconComponent = IconLibrary['back'];
    id='zRZZ9F9JeYGO0Koz36IN';
 
    let uid;
@@ -30,7 +33,7 @@ const Product= (id) =>{
     }
   }
   const handleBackPress =async() => {
-   
+    
   }
   const handleCartPress =async() => {
    
@@ -44,20 +47,22 @@ const Product= (id) =>{
       console.log(error);
     }
 }
-const getSimProd =async() => {
-  try {
-    if (item) { 
-      const data = await getProductsByCategory(item.category.toString());
-      setSimProd(data);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+// const getSimProd =async() => {
+//   try {
+//     if (item) { 
+//       const data = await getProductsByCategory(item.category);
+//       setSimProd(data);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
    
-}
+// }
   useEffect(() => {
     getItem();
-    getSimProd();
+    // if(item){
+    // getSimProd();
+    // }
   }, [item]);
  
 
@@ -67,7 +72,7 @@ const getSimProd =async() => {
     <View style={ProductStyle.Container}>
         <View style={ProductStyle.header}>
           <Pressable style={ProductStyle.back} onPress={()=> handleBackPress()} >
-            <Ionicons name="arrow-back-circle-outline" size={26} color="white" />
+          <IconComponent/>
           </Pressable>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
           {
@@ -122,15 +127,18 @@ const getSimProd =async() => {
         </View>
         
         <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text>
-        <FlatList
+        {/* <FlatList
         horizontal={true}
         data={simprod}
         renderItem={({ item }) => (
+          <View style={{height:'100%'}}>
           <ProductItem product={item}/>
+          </View>
         )}
-        style={ProductStyle.list}
-        keyExtractor={(item) => item.id.toString()}
-        />
+        style={[ProductStyle.list]}
+        keyExtractor={(item) => item.id}
+        
+        /> */}
         </ScrollView>
 
 
