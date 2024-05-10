@@ -16,8 +16,10 @@ import Header from '../../../../components/header/Header';
 // icons library import
 import IconLibrary from "../../../../components/icons/icons";
 
-// auth import from firebase
+// firebase functions import
 import { auth } from "../../../../firebase/config";
+import { getUser, deleteUserFS } from '../../../../firebase/users';
+import { deleteUser } from 'firebase/auth';
 
 // fake data
 const testAddress = {
@@ -46,9 +48,24 @@ const AccountSettings = () => {
     const DeleteIcon = IconLibrary['delete'];
     
     // functions
-    const handleDeleteAccount = () => {
+    const handleDeleteAccount = async () => {
+        // delete user from authentication
+        await deleteUser(auth.currentUser).then(() => {
+            // delete user from firestore
+            deleteUserFS(uid);
+            router.replace('auth/login')
+        }).catch((error) => console.error(error))
         // ..........
     }
+
+    // get user's data
+    const getUserData = async () => {
+        const userData = await getUser(uid);
+        setUser(userData);
+    }
+    useEffect(() => {
+        getUserData();
+    },[])
     
     return (
         <View>

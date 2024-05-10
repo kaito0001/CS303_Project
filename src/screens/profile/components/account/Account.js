@@ -15,8 +15,9 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 // global components import
 import Choice from '../../../../components/choice/Choice';
 
-// auth import from firebase
+// firebase functions import
 import { auth } from "../../../../firebase/config";
+import { getUser } from '../../../../firebase/users';
 
 const Account = ({ visible, setIsLogin }) => {
     
@@ -27,13 +28,25 @@ const Account = ({ visible, setIsLogin }) => {
     }
     
     // useStates
-    const [name, setName] = useState('Sherif');
+    const [name, setName] = useState();
+    const [userData, setUserData] = useState();
     
     // functions
     const handleLogout = () => {
         // ..........
         setIsLogin(false);
     }
+
+    // get user's data
+    // ? needs optimization if we don't need the whole data
+    useEffect(() => {
+        const getUserData = async () => {
+            const userData = await getUser(uid);
+            setUserData(userData);
+            setName(userData.name)
+        }
+        getUserData();
+    },[])
     
     if ( !visible ) {
         return null;

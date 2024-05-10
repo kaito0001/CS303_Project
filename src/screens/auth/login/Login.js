@@ -18,20 +18,39 @@ import LoginStyle from './stylesheets/Stylesheet';
 import Header from '../../../components/header/Header';
 import Buttton from '../../../components/buttton/Buttton';
 
+// firebase functions import
+import { auth } from '../../../firebase/config';
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 // icons import
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { getUser } from '../../../firebase/users';
 
 const Login = () => {
     
     // useStates
     const [hide, setHide] = useState(true);
     const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [login, setLogin] = useState(false);
     
     // functions
     const handleLogin = () => {
-        // ..........
+        setLogin(!login);
+        signInWithEmailAndPassword(auth, email, password).then(async (userCredentials) => {
+            const user = await getUser(userCredentials.user.uid);
+            if(!user.isAdmin){
+                // normal user routing...
+                router.replace("/profile")
+            }
+            else{
+                // admin routing...
+            }
+        }).catch((error) => console.error(error))
+        // ! error handling
+
+        // ? finished or needs something else
     }
     
     const handleGoogleSignIn =() => {
@@ -66,7 +85,7 @@ const Login = () => {
                             style={[LoginStyle.textInput, Platform.OS === 'web' && LoginStyle.webTextInput, { width: '100%'}]}
                             placeholder="Email"
                             placeholderTextColor="#99a4b4"
-                            onTextChange={setEmail}
+                            onChangeText={(text) => setEmail(text.trim())}
                             value={email}
                         />
                     </View>
@@ -76,6 +95,8 @@ const Login = () => {
                             placeholder="Password"
                             placeholderTextColor="#99a4b4"
                             secureTextEntry={hide}
+                            onChangeText={setPassword}
+                            value={password}
                         />
                         <Pressable onPress={() => setHide(!hide)}>
                             {hide ? (

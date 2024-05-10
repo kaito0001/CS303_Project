@@ -22,8 +22,10 @@ import IconLibrary from "../../../../../../components/icons/icons";
 // icons import
 import { Ionicons } from '@expo/vector-icons';
 
-// auth import from firebase
+// firebase functions import
+import { signInWithEmailAndPassword, updateEmail } from "firebase/auth";
 import { auth } from "../../../../../../firebase/config";
+import { getUser, editUser } from '../../../../../../firebase/users';
 
 
 const EditEmail = () => {
@@ -37,6 +39,8 @@ const EditEmail = () => {
     // useStates
     const [email, setEmail] = useState('ana@ana.com');
     const [password,setPassword] = useState();
+    const [newEmail, setNewEmail] = useState();
+    const [userData, setUserData] = useState();
     const [hide, setHide] = useState(true);
     
     // icons import from library
@@ -44,9 +48,25 @@ const EditEmail = () => {
     const PassIcon = IconLibrary['pass'];
     
     // functions
-    const handleUpdateEmail = () => {
+    const handleUpdateEmail = async () => {
+        console.log(email, password);
+        signInWithEmailAndPassword(auth, email, password).then(() => {
+            editUser(uid, {...userData, email: newEmail}).catch((error) => console.error(error));
+            updateEmail(auth.currentUser, newEmail).catch((error) => console.error(error));
+        }).catch((error) => console.error(error))
         // ..........
     }
+
+    // get user's data
+    const getUserData = async () => {
+        const userData = await getUser(uid);
+        setUserData(userData);
+        setEmail(userData.email);
+        setNewEmail(userData.email)
+    }
+    useEffect(() => {
+        getUserData();
+    },[])
     
     
     return (
@@ -75,8 +95,8 @@ const EditEmail = () => {
                 <TextInput
                     style={[EditStyle.textInput, Platform.OS === 'web' && EditStyle.webTextInput]}
                     placeholderTextColor="#99a4b4"
-                    onChangeText={setEmail}
-                    value={email}
+                    onChangeText={(text) => setNewEmail(text.trim())}
+                    value={newEmail}
                 />
             </View>
             <View style={EditStyle.inputContainer}>
