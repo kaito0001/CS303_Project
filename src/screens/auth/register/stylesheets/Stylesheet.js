@@ -54,6 +54,13 @@ const RegisterStyle = StyleSheet.create({
         color: '#001b46',
         marginVertical: 30,
     },
+    emailAlert: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        
+    }
 })
 
 export default RegisterStyle;

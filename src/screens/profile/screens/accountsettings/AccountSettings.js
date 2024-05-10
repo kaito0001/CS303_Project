@@ -22,10 +22,10 @@ import { getUser, deleteUserFS } from '../../../../firebase/users';
 import { deleteUser } from 'firebase/auth';
 
 // fake data
-const testAddress = {
-    name: 'Sherif Omar',
-    phoneNumber: '01145902559',
-    email: 'ana@ana.com',
+const initailValue = {
+    name: '',
+    phoneNumber: '',
+    email: '',
 }
 
 const AccountSettings = () => {
@@ -37,7 +37,7 @@ const AccountSettings = () => {
     }
     
     // useStates
-    const [user, setUser] = useState(testAddress);
+    const [user, setUser] = useState(initailValue);
     
     // icons import from library
     const UserIcon = IconLibrary['user'];

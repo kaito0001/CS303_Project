@@ -16,6 +16,11 @@ import ForgotPassStyle from './stylesheets/Stylesheet';
 import Header from '../../../components/header/Header';
 import Buttton from '../../../components/buttton/Buttton';
 
+// firebase functions import
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../../firebase/config";
+import { getUsers } from "../../../firebase/users";
+
 // icons import
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -23,15 +28,32 @@ import { AntDesign } from '@expo/vector-icons';
 const ForgotPassword = () => {
     
     // useStates
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(true);
     
     // functions
-    const handleResetPassword = () => {
+    const handleResetPassword = async () => {
+        const usersList = await getUsers();
+        const index = usersList.findIndex((user) => user.email === email);
+
+        if(!email || index === -1){
+            setIsValid(false);
+            return;
+        }
+        else{
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                resetAlert();
+            })
+            .catch((error) => console.error(error))
+        }
         // ..........
     }
     
     const emailValidation = () => {
+        // if(!email || auth.currentUser.email !== email){
+        //     setIsValid(false);
+        // }
         // ..........
     }
     
@@ -59,7 +81,7 @@ const ForgotPassword = () => {
                         style={[ForgotPassStyle.textInput, Platform.OS === 'web' && ForgotPassStyle.webTextInput]}
                         placeholder="Email"
                         placeholderTextColor="#99a4b4"
-                        onTextChange={setEmail}
+                        onChangeText={(text) => setEmail(text.trim())}
                         value={email}
                         onBlur={emailValidation}
                     />

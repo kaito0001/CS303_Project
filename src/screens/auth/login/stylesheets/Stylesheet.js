@@ -80,6 +80,14 @@ const LoginStyle = StyleSheet.create({
         color: '#001b46',
         marginVertical: 30,
     },
+    emailAlert: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        // marginLeft: "32%"
+        
+    }
 })
 
 export default LoginStyle;
