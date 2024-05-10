@@ -42,9 +42,6 @@ const Products= ({category}) =>{
             renderItem={({ item }) => (
                 <ProductItem
                 product={item}
-                //         onPress={() => router.navigate(`/product/${product.id}`)}
-                //      onConfirm={() => AddToCart(product.id)}
-                //     onDelete={() => deleteFromCart(product.id)}
                />
             )}
              />

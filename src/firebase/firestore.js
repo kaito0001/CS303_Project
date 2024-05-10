@@ -73,15 +73,7 @@ const  getProductsByCategory= async(category) =>{
     return docs;
 }
 
-const getProductsBysubCategory= async(subcategory) =>{
-    const q = query(productsRef,where("subcategory","==",subcategory));
-    const querySnapshot = await getDocs(q);
-    const docs = [];
-    querySnapshot.forEach((doc) => {
-        docs.push( doc.data() );
-    });
-    return docs;
-}
+
 
 
 
@@ -93,6 +85,5 @@ export {getDocFunc,
         addDocFunc,
         addProduct,
         getProductsByCategory,
-        getProductsBysubCategory,
         getProduct
     };

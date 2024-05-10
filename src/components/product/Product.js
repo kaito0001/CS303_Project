@@ -10,7 +10,7 @@ const Product= ({product}) =>{
   const [liked,setLiked]=useState(false);
   const handlePressed= ()=>{
     Alert.alert(' product id',product.id);
-    // router.replace(`about`)
+    // router.replace(``)
   }
   const handleLikePressed= ()=>{
     if(liked){ 
