@@ -10,7 +10,7 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
-
+import { getDocsFunc } from '../../firebase/firestore';
 // import images
 import tablet from '../../../assets/tablet-716.png';
 import logo from '../../../assets/rayashop_coupon_code.png';
@@ -23,6 +23,7 @@ const offers = [
     { img: img2 },
     { img: img3 },
 ];
+
 const DATA = [
     { id : 1,name: "mobile and tablet ", img:  tablet},
     { id : 2,name: "televisions ", img:tablet },
@@ -30,6 +31,8 @@ const DATA = [
     { id : 4,name: "small appliances ", img:  tablet},
     { id : 5,name: "Kitchen Appliances ", img:tablet},
 ];
+
+
 
 // import global component
 import { auth } from "../../firebase/config"; 
@@ -44,7 +47,26 @@ const Cart = () => {
     if ( auth.currentUser ) {
         uid = auth.currentUser.uid;
     }
-    
+    const [categories, setCategories] = useState([]);
+
+    // useEffect
+    useEffect(() => {
+    fetchCategories();
+    }, []);
+
+
+    // functions
+    const fetchCategories = async () => {
+    try {
+        const categoriesData = await getDocsFunc('categories');
+        
+        setCategories(categoriesData);
+        
+    } catch (error) {
+        console.error(error);
+    }
+    }
+
     
 
     return (
@@ -99,11 +121,11 @@ const Cart = () => {
                             <FlatList
                                 style={homeStyle.list}
                                 numColumns={2}
-                                data={DATA}
+                                data={categories}
                                 renderItem={({ item }) => (
                                     <Pressable style = {{margin : 20 ,alignItems : 'center'}}>
-                                        <Image source={item.img} style={{ width: 50, height: 50, margin: 20 }}></Image>
-                                    <Text style={homeStyle.txt}>{ item.name}</Text>
+                                        <Image source={item.image} style={{ width: 50, height: 50, margin: 20 }}></Image>
+                                    <Text style={homeStyle.txt}>{ item.category}</Text>
                                     </Pressable>
                                 )}
                             />

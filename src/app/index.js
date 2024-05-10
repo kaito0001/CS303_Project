@@ -29,7 +29,7 @@ const Page = () => {
     // }, []);
     
     return (
-        <Cart />
+        <Category/>
     );
 }
 

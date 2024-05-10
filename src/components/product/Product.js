@@ -20,7 +20,7 @@ const Product= ({product}) =>{
   }
 
   return (
-      <Pressable style={ProductStyle.Container} onPress={()=> handlePressed()}>
+      <Pressable style={ProductStyle.Container} onPress={()=> router.replace(`product?id=${product.id}`)}>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
           {
             liked? <Entypo name="heart" size={24} color="red" />:<Entypo name="heart-outlined" size={24} color="black" />
