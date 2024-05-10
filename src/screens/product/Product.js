@@ -1,8 +1,7 @@
-import { FlatList, StyleSheet, Text,  View, StatusBar,Image, Dimensions , ScrollView} from "react-native";
+import { FlatList, StyleSheet, Text,  View, StatusBar,Image, Dimensions , ScrollView,Pressable} from "react-native";
 import React, { useEffect, useState } from "react";
-import { Entypo ,AntDesign} from '@expo/vector-icons';
-import Header from "../../components/header/Header";
-
+import { Entypo ,AntDesign,Ionicons} from '@expo/vector-icons';
+import ProductItem from '../../components/product/Product'
 import ProductStyle from "./stylesheets/Stylesheets";
 import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBysubCategory, addProduct, getProduct } from "../../firebase/products";
 import Buttton from "../../components/buttton/Buttton";
@@ -12,17 +11,35 @@ const screenwidth = Dimensions.get('window').width;
 const screenheight = Dimensions.get('window').height;
 
 const Product= () =>{
-  const [prod, setProd] = useState([]);
+  const [item, setItem] = useState([]);
+  const [simprod, setSimProd] = useState([]);
+  const [liked,setLiked]=useState(false);
   const id='zRZZ9F9JeYGO0Koz36IN';
 
+  const handleLikePressed= ()=>{
+    if(liked){ 
+      setLiked(false);
+    }
+    else setLiked(true);
+  }
+  const handleBackPress =async() => {
+   
+  }
+  const handleCartPress =async() => {
+   
+}
 
-
-  const getProducts =async() => {
+  const getItem =async() => {
      const data =await getProduct(id);
-     setProd(data);
+     setItem(data);
+}
+const getSimProd =async() => {
+    const data = await getProductsByCategory(item.category.toString());
+    setSimProd(data);
 }
   useEffect(() => {
-    getProducts();
+    getItem();
+    getSimProd();
   }, []);
  
 
@@ -30,10 +47,20 @@ const Product= () =>{
 
   return (
     <View style={ProductStyle.Container}>
-        <Header title={'PROFILE'}/>
-        <ScrollView style={ProductStyle.box}>
+        <View style={ProductStyle.header}>
+          <Pressable style={ProductStyle.back} onPress={()=> handleBackPress()} >
+            <Ionicons name="arrow-back-circle-outline" size={26} color="white" />
+          </Pressable>
+        <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
+          {
+            liked? <Entypo name="heart" size={24} color="red" />:<Entypo name="heart-outlined" size={24} color="white" />
+          }
+        </Pressable>
+        </View>
+        <ScrollView style={ProductStyle.box}  >
             <FlatList
-        data={prod.images}
+        data={item.images}
+        contentContainerStyle={ProductStyle.listImage}
         renderItem={({ item }) => (
           <View style={{
             alignItems: 'center',
@@ -47,31 +74,48 @@ const Product= () =>{
         pagingEnabled
         showsHorizontalScrollIndicator={false}
       />
-            {/* <Image source={prod.images[0]} style={ProductStyle.image}/> */}
-            <View style={{flexDirection:'row', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        </View>
-        <Text style={ProductStyle.title}>{prod.title}</Text>
+      <Text style={ProductStyle.title}>{item.title}</Text>
+      <View style={{flexDirection:'row', marginTop: 10}}>
+          <Ionicons name="star" size={22} color={item.rating >0 ? '#fdbc38':"#e5e8ec"} />
+          <Ionicons name="star" size={22} color={item.rating >1 ? '#fdbc38':"#e5e8ec"} />
+          <Ionicons name="star" size={22} color={item.rating >2 ? '#fdbc38':"#e5e8ec"} />
+          <Ionicons name="star" size={22} color={item.rating >3 ? '#fdbc38':"#e5e8ec"} />
+          <Ionicons name="star" size={22} color={item.rating ==5 ? '#fdbc38':"#e5e8ec"} />
+      </View>
+        
         <View >
          {
-         prod.discount_price!=''?
-          <View style={{flexDirection:'row' , alignItems:'center',margin:10}}>
-          <Text style={ProductStyle.price}>{prod.discount_price}</Text>
-          <Text style={ProductStyle.discount_price}>{prod.price}</Text>
+         item.discount_price!=''?
+          <View style={ProductStyle.priceField}>
+          <Text style={ProductStyle.price}>{item.discount_price}</Text>
+          <Text style={ProductStyle.discount_price}>{item.price}</Text>
           </View>
-         :<Text style={ProductStyle.price}>{prod.price}</Text>
+         :<Text style={ProductStyle.price}>{item.price}</Text>
         }
         </View>
-        <Buttton title={'Add to cart'} main={true}/>
-        <View>
-          <Text>Product Desc</Text>
-          <Text>{prod.description}</Text>
+
+        <Buttton title={'Add to cart'} main={true} onPress={()=> handleCartPress()}/>
+
+        <View style={ProductStyle.descriptionField}>
+            <Text style={ProductStyle.textDescription}>Product Description</Text>
+            <View style={ProductStyle.descriptionBox}>
+                <Text style={ProductStyle.description}>{item.description}</Text>
+            </View>
         </View>
         
+        <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text>
+        <FlatList
+        data={simprod}
+        renderItem={({ item }) => (
+          <ProductItem product={item}/>
+        )}
+        style={ProductStyle.list}
+        KeyExtractor={(item) => item.id}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        initialNumToRender={6} 
+        
+        />
         </ScrollView>
 
 

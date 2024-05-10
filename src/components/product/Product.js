@@ -1,6 +1,6 @@
 import { Text, Pressable, View, Image, Alert } from "react-native";
 import ProductStyle from "./stylesheets/Stylesheet";
-import { Entypo ,AntDesign} from '@expo/vector-icons';
+import { Entypo ,AntDesign,Ionicons} from '@expo/vector-icons';
 import { useState } from "react";
 
 
@@ -30,11 +30,11 @@ const Product= ({product}) =>{
      
       <View style={ProductStyle.box}>
         <View style={{flexDirection:'row'}}>
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
-        <AntDesign name="star" size={24} color="#e5e8ec" />
+        <Ionicons name="star" size={24} color={product.rating >0 ? '#fdbc38':"#e5e8ec"} />
+        <Ionicons name="star" size={24} color={product.rating >1 ? '#fdbc38':"#e5e8ec"} />
+        <Ionicons name="star" size={24} color={product.rating >2 ? '#fdbc38':"#e5e8ec"} />
+        <Ionicons name="star" size={24} color={product.rating >3 ? '#fdbc38':"#e5e8ec"} />
+        <Ionicons name="star" size={24} color={product.rating ==5 ? '#fdbc38':"#e5e8ec"} />
         </View>
         <Text style={ProductStyle.title}>{product.title}</Text>
         {

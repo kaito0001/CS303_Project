@@ -8,7 +8,6 @@ import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBy
 
 
 const Products= () =>{
-//   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
 
