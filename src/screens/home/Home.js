@@ -165,12 +165,12 @@ const Home = () => {
                         <Text style={homeStyle.title}> Categories </Text>
                     
                         <FlatList
-                            // style={homeStyle.list}
+                                style={{ backgroundColor : 'white', borderRadius : 10}}
                             numColumns={2}
                             data={categories}
                             renderItem={({ item }) => (
-                                <Pressable style={{ margin: 20, alignItems: 'center' }} onPress={() => router.replace(`products?categoryName=${item.category}`)} >
-                                    <Image source={{ uri :item.image }} style={{ width: 50, height: 50, margin: 20 }}></Image>
+                                <Pressable style={{ marginHorizontal : 10, alignItems: 'center' }} onPress={() => router.replace(`products?categoryName=${item.category}`)} >
+                                    <Image source={{ uri :item.image }} style={{ width: 100, height: 100, margin: 20 }}></Image>
                                     <Text style={homeStyle.txt}>{item.category}</Text>
                                 </Pressable>
                             )}
@@ -180,7 +180,7 @@ const Home = () => {
                             
                         <Text style={homeStyle.title}> OUR TOP OFFERS </Text>
                         <FlatList
-                            // style={homeStyle.list}
+                            style={{marginBottom: 60}}
                             horizontal={true}
                             data={products}
                             renderItem={({ item }) => (

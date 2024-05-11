@@ -48,7 +48,7 @@ const homeStyle = StyleSheet.create({
     },
     txt: {
         color: '#3d3d3d',
-        fontSize : 10
+        fontSize : 15
     },
     title: {
         marginTop: 20,
