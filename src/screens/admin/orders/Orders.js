@@ -119,7 +119,7 @@ const Orders = () => {
     return (
         <View style={OrdersStyle.container} >
             
-            <Header title={'Orders'}></Header>
+            <Header title={'ORDERS'}></Header>
             
             <ScrollView>
                 <FlatList
@@ -130,6 +130,8 @@ const Orders = () => {
                 />
             </ScrollView>
             
+            <View style={{paddingBottom: 60}} ></View>
+
             <StatusBar backgroundColor="#001b46"/>
         </View>
     )

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { router } from 'expo-router';
+import React, {useState, useEffect} from 'react';
+import {router} from 'expo-router';
 import {
     View,
     Text,
@@ -14,8 +16,12 @@ import Buttton from '../../../../components/buttton/Buttton';
 import Order from '../../../../components/order/Order';
 
 // auth import from firebase
+<<<<<<< Updated upstream
 import { auth } from "../../../../firebase/config";
 import { getOrders } from '../../../../firebase/order';
+=======
+import {auth} from "../../../../firebase/config";
+>>>>>>> Stashed changes
 
 // const fakeOrdersData = [
 //     {
@@ -133,10 +139,19 @@ const MyOrders = () => {
     
     
     if (orders.length === 0) {
+=======
+    const [orders, setorders] = useState(fakeOrdersData);
+
+
+    if (orders && orders.length === 0) {
+>>>>>>> Stashed changes
         return (
             <View>
                 <Header title={'MY ORDERS' + ' ' + `(${orders.length})`} onBackPress={() => router.replace(`profile`)}></Header>
                 
+                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`}
+                        onBackPress={() => router.replace(`profile`)}></Header>
+
                 <View style={{padding: '6%', alignItems: 'center'}}>
                     <Text>
                         You haven't ordered any products from Raya yet,
@@ -157,10 +172,14 @@ const MyOrders = () => {
             </View>
         )
     }  else {
+    } else {
         return (
             <View style={{flex: 1, backgroundColor: '#fafcfb'}} >
+            <View style={{flex: 1, backgroundColor: '#fafcfb'}}>
 
                 <Header title={'MY ORDERS' + ' ' + `(${orders.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`}
+                        onBackPress={() => router.replace(`profile`)}></Header>
 
                 <ScrollView>
                     <FlatList

@@ -11,9 +11,14 @@ import {
 // global components import
 import Header from '../../../../components/header/Header';
 import Buttton from '../../../../components/buttton/Buttton';
+
+// local components import
 import Product from '../../../../components/product/Product';
+
 // auth import from firebase
 import { auth } from "../../../../firebase/config";
+
+// firestore functions import
 import { getWishList } from '../../../../firebase/wishlist';
 
 const MyWishlist = () => {
@@ -38,7 +43,9 @@ const MyWishlist = () => {
         try {
             const wishlistData = await getWishList(uid);
             
-            setWishlist(wishlistData);
+            if (wishlistData) {
+                setWishlist(wishlistData);
+            }
             
         } catch (error) {
             console.error(error);
@@ -46,10 +53,10 @@ const MyWishlist = () => {
         }
     
     
-    if (wishlist.length === 0) {
+    if (wishlist && wishlist.length === 0) {
         return (
             <View>
-                <Header title={'WISHLIST' + ' ' + `(${wishlist.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'WISHLIST' + ' ' + `(${wishlist ? wishlist.length : 0})`} onBackPress={() => router.replace(`profile`)}></Header>
                 
                 <View style={{padding: '6%', alignItems: 'center'}}>
                     <Text>
@@ -69,18 +76,16 @@ const MyWishlist = () => {
         )
     }else {
         return (
-            <View style = {{flex : 1}}>
-                <Header title={'WISHLIST' + ' ' + `(${wishlist.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+            <View style={{flex: 1}}>
+                <Header title={'WISHLIST' + ' ' + `(${wishlist ? wishlist.length : 0})`}
+                        onBackPress={() => router.replace(`profile`)}></Header>
                 <FlatList
-                                style={styles.list}
-                                
-                                data={wishlist}
-                                renderItem={({ item }) => (
-                                    
-                                    <Product product={item}></Product>
-                                )}
-                            />
-                
+                    style={styles.list}
+                    data={wishlist}
+                    renderItem={({item}) => (
+                        <Product product={item}></Product>
+                    )}
+                />
             </View>
         )
         
@@ -92,11 +97,9 @@ export default MyWishlist;
 
 const styles = StyleSheet.create({
     list: {
-            padding: '5%', 
-            margin : 10,
-            backgroundColor: '#fafcfb',
-            borderRadius: 10,
-
-    
+        padding: '5%',
+        margin: 10,
+        backgroundColor: '#fafcfb',
+        borderRadius: 10,
     },
 })

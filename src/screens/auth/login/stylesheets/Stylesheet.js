@@ -45,7 +45,6 @@ const LoginStyle = StyleSheet.create({
         fontSize: 12,
     },
     inputContainer: {
-        paddingHorizontal: 18,
         justifyContent: 'space-between',
         marginTop: 30,
         flexDirection: 'row',
@@ -55,10 +54,7 @@ const LoginStyle = StyleSheet.create({
         borderColor: '#99a4b4',
     },
     textInput: {
-        marginVertical: 18,
-        width: 'inherit',
-        height: '100%',
-        paddingLeft: 20,
+        padding: 18,
         borderRadius: 10,
         color: '#001b46',
         fontSize: 14,
@@ -70,8 +66,12 @@ const LoginStyle = StyleSheet.create({
         boxShadow: 'none',
     },
     forgotPass: {
-        marginVertical: 30,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 20,
         alignSelf: 'flex-end',
+    },
+    forgotPassTxT: {
         color: '#006cb7',
         fontSize: 12,
         fontWeight: '500',

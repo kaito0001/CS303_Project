@@ -20,7 +20,7 @@ import { auth } from "../../firebase/config";
 import { getUser } from '../../firebase/users';
 
 const Profile = () => {
-    
+
     // useStates
     const [isLogin, setIsLogin] = useState(uid !== undefined);
     const [userData, setUserData] = useState();
@@ -28,7 +28,7 @@ const Profile = () => {
     
     // functions
     const handleCallBack = useCallback( (bool) => {
-       setIsLogin(bool);
+    setIsLogin(bool);
     }, []);
 
     // get user's data

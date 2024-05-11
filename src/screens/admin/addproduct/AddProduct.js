@@ -59,7 +59,7 @@ const AddProduct = () => {
                     images: images,
                     isAvailable: true,
                     price: price,
-                     rating:0,
+                    rating: 0,
                     discount_price: discountPrice,
                     description: description,
                     numericPrice:discountPrice ? parseInt(discountPrice) :parseInt(price) ,

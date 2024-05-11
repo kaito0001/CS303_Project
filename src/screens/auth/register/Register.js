@@ -50,6 +50,7 @@ const Register = () => {
         if(!name || !email || !phoneNumber || !password){
             setIsValid(false);
             setRegister(false);
+            return null;
         }
         // add the user to the authentication
         await createUserWithEmailAndPassword(auth, email, password).then( async (userCredentials) => {
@@ -150,7 +151,7 @@ const Register = () => {
                     <View style={RegisterStyle.line} ></View>
                 </View>
                 
-                <View style={{marginHorizontal: '6%'}}>
+                <View style={{marginHorizontal: '6%', paddingBottom: 30}}>
                     <Text style={RegisterStyle.txt2} >Already have an account? Login to your account for quick and easy cheackout experience.</Text>
                     <Buttton title={'Login to My Account'} main={false} onPress={() => router.replace('auth/login')}></Buttton>
                 </View>

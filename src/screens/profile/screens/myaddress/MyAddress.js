@@ -5,7 +5,6 @@ import {
     Text,
     FlatList,
     StatusBar,
-    ScrollView,
 } from 'react-native';
 
 // global components import
@@ -57,11 +56,28 @@ const MyAddress = () => {
         }
         fetchAddresses();
     },[]);
+    // const fetchAddresses = async () => {
+    //     const addressesList = await getAddresses(uid);
+    //     if(addressesList){
+    //         setAddresses(addressesList);
+    //     }
+    // }
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         fetchAddresses();
+    //     }, [])
+    //   );
+
+    // const onDeleteHandler = async (addressId) => {
+    //     deleteAddress(uid, addressId);
+    //     fetchAddresses();
+    // }
+
     
-    if (addresses.length === 0) {
+    if (addresses && addresses.length === 0) {
         return (
             <View>
-                <Header title={'MY ADDRESS BOOK' + ' ' + `(${addresses.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ADDRESS BOOK' + ' ' + `(${addresses ? addresses.length : 0})`} onBackPress={() => router.replace(`profile`)}></Header>
                 
                 <View style={{padding: '6%', alignItems: 'center'}}>
                     <Text>
@@ -86,7 +102,7 @@ const MyAddress = () => {
                         style={{maxHeight: "85%"}}
                         data={addresses}
                         renderItem={({item}) =>
-                            <Address address={item} userId={uid}/>
+                            <Address address={item} userId={uid} admin={true}/>
                         }
                     />
                     <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>

@@ -14,6 +14,8 @@ const AdminBarStyle = StyleSheet.create({
         paddingVertical: 15,
         justifyContent: 'space-between',
         flexDirection: 'row',
+        borderTopColor: '#d8e9f3',
+        borderTopWidth: 1,
     },
 })
 

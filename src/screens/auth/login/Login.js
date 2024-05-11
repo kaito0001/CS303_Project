@@ -52,10 +52,11 @@ const Login = () => {
                 }
                 else{
                     // admin routing...
+                    router.replace('admin');
                 }
             }).catch((error) => {
                 setIsValid(false);
-                setLogin(false)
+                setLogin(false);
                 console.error(error);
             })
         }
@@ -95,21 +96,22 @@ const Login = () => {
                     <Text style={LoginStyle.txt1} >Login to your account for a quick checkout process</Text>
                     <View style={[LoginStyle.inputContainer, {marginBottom: 15}]}>
                         <TextInput
-                            style={[LoginStyle.textInput, Platform.OS === 'web' && LoginStyle.webTextInput, { width: '100%'}]}
+                            style={[LoginStyle.textInput, { width: '100%'}]}
                             placeholder="Email"
                             placeholderTextColor="#99a4b4"
                             onChangeText={(text) => setEmail(text.trim())}
                             value={email}
                         />
                     </View>
-                    <View style={LoginStyle.inputContainer}>
+                    <View style={[LoginStyle.inputContainer, {paddingRight: 18}]}>
                         <TextInput
-                            style={[LoginStyle.textInput, Platform.OS === 'web' && LoginStyle.webTextInput, {width: '80%'}]}
+                            style={[LoginStyle.textInput, {width: '80%'}]}
                             placeholder="Password"
                             placeholderTextColor="#99a4b4"
                             secureTextEntry={hide}
                             onChangeText={setPassword}
                             value={password}
+
                         />
                         <Pressable onPress={() => setHide(!hide)}>
                             {hide ? (
@@ -119,16 +121,15 @@ const Login = () => {
                             )}
                         </Pressable>
                     </View>
-                    <View style={{ justifyContent: "space-between" }}>
-                        <View style={{ width: 16 }}></View>
-                        {!isValid && 
-                            <View style={LoginStyle.emailAlert}>
-                                <AntDesign name="warning" size={24} color="red" />
-                                <Text style={{color: 'red', marginLeft: 5}}>Invalid Email Address</Text>
-                            </View>
-                        }
+                    {!isValid &&
+                        <View style={LoginStyle.emailAlert}>
+                            <AntDesign name="warning" size={24} color="red"/>
+                            <Text style={{color: 'red', marginLeft: 5}}>Invalid Email Address</Text>
+                        </View>
+                    }
+                    <View style={LoginStyle.forgotPass}>
                         <Pressable onPress={() => router.replace('auth/forgotpassword')}>
-                            <Text style={LoginStyle.forgotPass} >Forgot password?</Text>
+                            <Text style={LoginStyle.forgotPassTxT}>Forgot password?</Text>
                         </Pressable>
                     </View>
                     {login ? (

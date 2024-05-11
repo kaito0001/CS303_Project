@@ -44,8 +44,11 @@ const Account = ({ visible, setIsLogin }) => {
     
     // functions
     const handleLogout = () => {
-        // ..........
         setIsLogin(false);
+        auth.signOut().then(() => {
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 
     const pickImage = async () => {
@@ -70,9 +73,11 @@ const Account = ({ visible, setIsLogin }) => {
     useEffect(() => {
         const getUserData = async () => {
             const userData = await getUser(uid);
-            setUserData(userData);
-            setName(userData.name);
-            setImg(userData.image);
+            if (userData) {
+                setUserData(userData);
+                setName(userData.name);
+                setImg(userData.image);
+            }
         }
         getUserData();
     },[])
@@ -85,16 +90,16 @@ const Account = ({ visible, setIsLogin }) => {
         <View style={AccountStyle.container} >
             
             <View style={AccountStyle.user} >
-                <Text>Hello  {userData ? userData.name : 'My Dear'}</Text>
+                <Text style={!img && {paddingVertical: 20}}>Hello  {userData ? userData.name : 'My Dear'}</Text>
                 <View>
                     {!img ? (
-                        <Pressable onPress={pickImage}>
+                        <Pressable onPress={pickImage} >
                             <Text style={{color: '#006cb7'}}>Add Image</Text>
                         </Pressable>
                     ) : (
-                        <View>
+                        <Pressable onPress={pickImage} >
                             <Image source={{ uri: img }} style={AccountStyle.image}></Image>
-                        </View>
+                        </Pressable>
                     )}
                 </View>
             </View>

@@ -4,8 +4,7 @@ import {
     View,
     Text,
     Pressable,
-    StyleSheet, StatusBar,
-    Alert,
+    StatusBar,
 } from 'react-native';
 
 // stylesheet import
@@ -20,7 +19,7 @@ import IconLibrary from "../../../../components/icons/icons";
 // firebase functions import
 import { auth } from "../../../../firebase/config";
 import { getUser, deleteUserFS } from '../../../../firebase/users';
-import { deleteUser, sendEmailVerification } from 'firebase/auth';
+import { deleteUser } from 'firebase/auth';
 
 // fake data
 const initailValue = {
@@ -62,41 +61,13 @@ const AccountSettings = () => {
     // get user's data
     const getUserData = async () => {
         const userData = await getUser(uid);
-        setUser(userData);
+        if (userData) {
+            setUser(userData);
+        }
     }
     useEffect(() => {
         getUserData();
-    },[]);
-
-    const onChangeEmailHandler = () => {
-        if(!auth.currentUser.emailVerified){
-            sendEmailVerification(auth.currentUser);
-            return Alert.alert('Email verification link has been sent', 'Verify your email to be able to edit it', [
-                {
-                    text: 'Ok',
-                    onPress: () => router.replace(`account/edit/email`),
-                },
-            ])
-        }
-        else{
-            router.replace(`account/edit/email`);
-        }
-    }
-
-    const onChangePasswordHandler = () => {
-        if(!auth.currentUser.emailVerified){
-            sendEmailVerification(auth.currentUser);
-            return Alert.alert('Email verification link has been sent', 'Verify your email to be able to edit it', [
-                {
-                    text: 'Ok',
-                    onPress: () => router.replace(`account/edit/password`),
-                },
-            ])
-        }
-        else{
-            router.replace(`account/edit/email`);
-        }
-    }
+    },[])
     
     return (
         <View>
@@ -110,9 +81,9 @@ const AccountSettings = () => {
                         <Text style={AccountStyle.txt}>Name</Text>
                         <Text style={AccountStyle.txt}>{user.name}</Text>
                     </View>
-                   <Pressable onPress={() => router.replace(`account/edit/name`)}>
+                <Pressable onPress={() => router.replace(`account/edit/name`)}>
                         <EditIcon/>
-                   </Pressable>
+                </Pressable>
                 </View>
             </View>
             
@@ -127,28 +98,12 @@ const AccountSettings = () => {
             </View>
             
             <View style={AccountStyle.choice} >
-                <View style={AccountStyle.info} >
+                <View style={[AccountStyle.info, {borderColor: '#fafafa'}]} >
                     <View style={{flexDirection: 'row', alignItems: 'center'}} >
                         <EmailIcon/>
                         <Text style={AccountStyle.txt}>Email</Text>
                         <Text style={AccountStyle.txt}>{user.email}</Text>
                     </View>
-                    <Pressable onPress={onChangeEmailHandler}>
-                        <EditIcon/>
-                    </Pressable>
-                </View>
-            </View>
-            
-            <View style={AccountStyle.choice} >
-                <View style={[AccountStyle.info, {borderWidth: 0}]} >
-                    <View style={{flexDirection: 'row', alignItems: 'center'}} >
-                        <PassIcon/>
-                        <Text style={AccountStyle.txt}>Password</Text>
-                        <Text style={AccountStyle.txt}>******</Text>
-                    </View>
-                    <Pressable onPress={onChangePasswordHandler}>
-                        <EditIcon/>
-                    </Pressable>
                 </View>
             </View>
             
@@ -168,4 +123,3 @@ const AccountSettings = () => {
 }
 
 export default AccountSettings;
-

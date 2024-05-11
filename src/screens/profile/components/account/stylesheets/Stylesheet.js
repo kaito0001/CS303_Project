@@ -10,14 +10,15 @@ const AccountStyle = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: '6%',
         backgroundColor: '#f2f7fb',
-        padding: 30,
+        paddingHorizontal: 30,
+        paddingVertical: 10,
         borderRadius: 20,
     },
     image: {
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         borderWidth: 1,
-        borderRadius: 40,
+        borderRadius: 60,
         borderColor: '#f2f7fb'
     },
     choice: {

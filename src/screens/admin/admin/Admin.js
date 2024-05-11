@@ -43,16 +43,25 @@ const Admin = () => {
     const [component, setComponent] = useState('Admin');
     
     // functions
-    
+    const handleLogout = () => {
+        auth.signOut().then(() => {
+        }).catch((error) => {
+        console.error(error);
+        });
+        router.replace('home');
+    }
 
     // get user's data
     useEffect(() => {
         const getUserData = async () => {
             const userData = await getUser(uid);
-            setUserData(userData);
+            if (userData) {
+                setUserData(userData);
+            }
         }
         getUserData();
     },[])
+
 
     return (
         <View style={AdminStyle.container}>
@@ -94,25 +103,13 @@ const Admin = () => {
                 <View style={AdminStyle.line}></View>
                 
                 <View style={AdminStyle.choice} >
-                    <Pressable style={AdminStyle.delete}>
+                    <Pressable style={AdminStyle.delete} onPress={handleLogout}>
                         <SimpleLineIcons name="logout" size={24} color="red" />
                         <Text style={AdminStyle.deleteTxt}>Logout</Text>
                     </Pressable>
                 </View>
                 
             </ScrollView>
-            
-            <View style={AdminStyle.toolBar}>
-                <Pressable onPress={() => router.push(`/user/${Id.userId}`)}>
-                    <MaterialCommunityIcons name="shield-account-outline" size={24} color="black" />
-                </Pressable>
-                <Pressable onPress={() => router.push(`/user/newtodo/${Id.userId}`)}>
-                    <MaterialCommunityIcons name="shield-account-outline" size={24} color="black" />
-                </Pressable>
-                <Pressable onPress={() => router.push(`/user/profile/${Id.userId}`)}>
-                    <MaterialCommunityIcons name="shield-account-outline" size={24} color="black" />
-                </Pressable>
-            </View>
 
             <StatusBar backgroundColor="#001b46"/>
 
