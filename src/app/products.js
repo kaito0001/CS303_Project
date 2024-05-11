@@ -1,9 +1,9 @@
 import Products from '../screens/products/Products';
 
-const Product = () => {
+const Page = () => {
     return (
         <Products></Products>
     )
 }
 
-export default Product;
+export default Page;
