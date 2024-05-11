@@ -25,12 +25,14 @@ const Product= ({product}) =>{
   }
   const fetchWishList = async () => {
     try {
+         if(uid){
         const wishlistData = await getWishList(uid);
         wishlistData.forEach(element => {
           if(element.id===product.id){
             setLiked(true);
         }
         });
+      }
         
     } catch (error) {
         console.error(error);
