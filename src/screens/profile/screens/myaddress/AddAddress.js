@@ -8,6 +8,7 @@ import {
     StatusBar,
     TextInput,
     ScrollView,
+    Alert,
 } from 'react-native';
 
 // stylesheet import
@@ -20,6 +21,7 @@ import Buttton from '../../../../components/buttton/Buttton';
 // auth import from firebase
 import { auth } from "../../../../firebase/config";
 import { addAddress, setAllNotDefault } from '../../../../firebase/address';
+import { getUser } from '../../../../firebase/users';
 
 const AddAddress = () => {
     
@@ -54,12 +56,29 @@ const AddAddress = () => {
     const [floor, setFloor] = useState('');
     const [apartment, setApartment] = useState('');
     const [addressName, setAddressName] = useState('');
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const userData = await getUser(uid);
+            setName(userData.name);
+        }
+
+        fetchUserName();
+    },[]);
 
     // functions
     const addAddressHandler = async () => {
+        if(!phoneNumber || !building || !street || !area || !government || !floor || !apartment || !addressName){
+            return Alert.alert('Non Complete Data','Please enter all address information.', [
+                {
+                    text: 'Ok',
+                },
+            ])
+        }
         const newAddress = {
             id: Math.random().toString(),
-            name: 'Sherif Omar',
+            name: name,
             phoneNumber: phoneNumber,
             address: {
                 bullding: building,

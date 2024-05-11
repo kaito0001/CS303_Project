@@ -52,6 +52,21 @@ import {
     }
   };
 
+  const getAllOrders = async () => {
+    try {
+      const q = query(collection(db, "orders"));
+      const ordersSnapshot = await getDocs(q);
+      const ordersList = ordersSnapshot.docs.map((doc) => {
+        return { ...doc.data() };
+      });
+      console.log("Fetched all orders:\n", ordersList);
+      return ordersList;
+    } catch (error) {
+      console.error("Error fetching orders: ", error);
+      return [];
+    }
+  };
+
   const editOrder = async (userId, orderId, order) => {
     try {
       const docRef = doc(db, "orders", userId);
@@ -67,12 +82,12 @@ import {
       const index = ordersList.findIndex((order) => order.id === orderId);
 
       if(index === -1){
-        console.log("Address not found with ID: ", orderId);
+        console.log("order not found with ID: ", orderId);
         return;
       }
 
       ordersList.splice(index, 1);
-      ordersList.push({...address, id: orderId});
+      ordersList.push({...order, id: orderId});
 
       await setDoc(docRef, { orders: ordersList });
       console.log("edited order with ID: ", orderId);
@@ -134,31 +149,5 @@ import {
         console.error(`Error adding address with ID: ${order.id}   error: ${error}`);
       }
   }
-
-  const setAllNotDefault = async (userId) => {
-    try {
-      const docRef = doc(db, "orders", userId);
-      const ordersDoc = await getDoc(docRef); 
-
-      if (!ordersDoc) {
-        console.log("User document not found");
-        return null;
-    }
-
-      if(ordersDoc.data() == undefined){
-        return;
-      }
-      const ordersList = ordersDoc.data().orders;
-
-      const newOrderList = ordersList.map((order) => {
-        return {...order, default: false}
-      })
-
-      await setDoc(docRef, { orders: newOrderList });
-      console.log("edited orders with ID: ", userId);
-    } catch (error) {
-      console.error(`Error editing orders with ID: ${userId}   error: ${error}`);
-    }
-  }
   
-  export { getOrder, getOrders ,addOrder,setAllNotDefault,deleteOrder,editOrder};
+  export { getOrder, getOrders, getAllOrders ,addOrder,deleteOrder,editOrder};

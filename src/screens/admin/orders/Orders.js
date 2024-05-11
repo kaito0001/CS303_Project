@@ -19,6 +19,7 @@ import Header from '../../../components/header/Header';
 
 // local components import
 import Order from '../../../components/order/Order';
+import { getAllOrders, getOrders } from '../../../firebase/order';
 
 const fakeOrdersData = [
     {
@@ -106,7 +107,15 @@ const Orders = () => {
     // useStates
     const [orders, setOrders] = useState(fakeOrdersData);
     
-    
+    // get orders
+    useEffect(() => {
+        const fetchAllOrders = async () => {
+            const orders = await getAllOrders();
+            setOrders(orders);
+        }
+        fetchAllOrders();
+    },[])
+
     return (
         <View style={OrdersStyle.container} >
             

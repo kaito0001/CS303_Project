@@ -7,6 +7,7 @@ import {
     TextInput,
     Pressable,
     StatusBar,
+    Alert,
 } from 'react-native';
 
 // stylesheet import
@@ -23,9 +24,10 @@ import IconLibrary from "../../../../../../components/icons/icons";
 import { Ionicons } from '@expo/vector-icons';
 
 // firebase functions import
-import { signInWithEmailAndPassword, updateEmail } from "firebase/auth";
+import { reauthenticateWithCredential, sendEmailVerification, signInWithEmailAndPassword, updateEmail, verifyBeforeUpdateEmail } from "firebase/auth";
 import { auth } from "../../../../../../firebase/config";
 import { getUser, editUser } from '../../../../../../firebase/users';
+import { EmailAuthCredential } from 'firebase/auth/cordova';
 
 
 const EditEmail = () => {
@@ -49,11 +51,26 @@ const EditEmail = () => {
     
     // functions
     const handleUpdateEmail = async () => {
-        console.log(email, password);
-        signInWithEmailAndPassword(auth, email, password).then(() => {
-            editUser(uid, {...userData, email: newEmail}).catch((error) => console.error(error));
-            updateEmail(auth.currentUser, newEmail).catch((error) => console.error(error));
-        }).catch((error) => console.error(error))
+        // await auth.currentUser.reload().then(() => {
+        //     console.log(newEmail);
+        //     if(auth.currentUser.emailVerified){
+        //         reauthenticateWithCredential(auth.currentUser, EmailAuthCredential).then(() => {
+        //             verifyBeforeUpdateEmail(auth.currentUser, newEmail)
+        //         .then(() => {
+        //             editUser(uid, {...userData, email: newEmail}).catch((error) => console.error(error));
+        //         })
+        //         .catch((error) => console.error(error));
+        //         })           
+        //     }
+        //     else{
+        //         return Alert.alert('Email is not verified', 'Verify your email to edit it', [
+        //             {
+        //                 text: 'Ok',
+        //                 onPress: () => sendEmailVerification(auth.currentUser),
+        //             },
+        //         ])
+        //     }
+        // }).catch((error) => console.error(error))
         // ..........
     }
 

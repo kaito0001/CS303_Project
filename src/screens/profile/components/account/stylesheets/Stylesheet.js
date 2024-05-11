@@ -5,10 +5,20 @@ const AccountStyle = StyleSheet.create({
         paddingVertical: 30,
     },
     user: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         marginHorizontal: '6%',
         backgroundColor: '#f2f7fb',
         padding: 30,
         borderRadius: 20,
+    },
+    image: {
+        width: 40,
+        height: 40,
+        borderWidth: 1,
+        borderRadius: 40,
+        borderColor: '#f2f7fb'
     },
     choice: {
         paddingHorizontal: '6%',

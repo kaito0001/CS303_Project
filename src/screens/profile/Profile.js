@@ -21,15 +21,10 @@ import { getUser } from '../../firebase/users';
 
 const Profile = () => {
     
-    // get current user
-    let uid;
-    if ( auth.currentUser ) {
-        uid = auth.currentUser.uid;
-    }
-
     // useStates
     const [isLogin, setIsLogin] = useState(uid !== undefined);
     const [userData, setUserData] = useState();
+    const [uid, setUid] = useState();
     
     // functions
     const handleCallBack = useCallback( (bool) => {
@@ -38,10 +33,17 @@ const Profile = () => {
 
     // get user's data
     useEffect(() => {
+        const getCurrentUid = async () => {
+            if ( auth.currentUser) {
+                setUid(auth.currentUser.uid);
+                setIsLogin(true);
+            }
+        }
         const getUserData = async () => {
             const userData = await getUser(uid);
             setUserData(userData);
         }
+        getCurrentUid();
         getUserData();
     },[])
 
