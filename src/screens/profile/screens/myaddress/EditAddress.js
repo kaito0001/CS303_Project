@@ -6,6 +6,7 @@ import {
     Platform,
     Pressable,
     TextInput,
+    Alert,
 } from 'react-native';
 
 // import stylesheet
@@ -18,6 +19,7 @@ import Buttton from '../../../../components/buttton/Buttton';
 // auth import from firebase
 import { auth } from "../../../../firebase/config";
 import { editAddress, setAllNotDefault } from '../../../../firebase/address';
+import { getUser } from '../../../../firebase/users';
 
 const EditAddress = () => {
     
@@ -37,13 +39,33 @@ const EditAddress = () => {
     const [floor, setFloor] = useState('');
     const [apartment, setApartment] = useState('');
     const [addressName, setAddressName] = useState('');
+    const [name, setName] = useState('');
 
     const { addressId } = useLocalSearchParams();
     // functions
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const userData = await getUser(uid);
+            setName(userData.name);
+            console.log("name",userData.name);
+        }
+
+        fetchUserName();
+    },[]);
+
     const editAddressHandler = async () => {
+        if(!phoneNumber || !building || !street || !area || !government || !floor || !apartment || !addressName){
+            return Alert.alert('Non Complete Data','Please enter all address information.', [
+                {
+                    text: 'Ok',
+                },
+            ])
+        }
+
         const newAddress = {
             // id: Math.random().toString(),
-            name: 'Sherif Omar',
+            name: name,
             phoneNumber: phoneNumber,
             address: {
                 bullding: building,

@@ -5,6 +5,7 @@ import {
     Text,
     FlatList,
     StatusBar,
+    ScrollView,
 } from 'react-native';
 
 // global components import
@@ -19,21 +20,21 @@ import { auth } from "../../../../firebase/config";
 import { deleteAddress, getAddresses } from '../../../../firebase/address';
 
 // fake data
-const testAddress = {
-    id: Math.random().toString(),
-    name: 'Sherif Omar',
-    phoneNumber: '01145902559',
-    address: {
-        bullding: '58',
-        street: 'Ebad El Rahman',
-        area: 'Mokkatam',
-        governorate: 'Cairo',
-        floor: '9',
-        apartment: '3'
-    },
-    default: true,
-    addressName: 'Home',
-}
+// const testAddress = {
+//     id: Math.random().toString(),
+//     name: 'Sherif Omar',
+//     phoneNumber: '01145902559',
+//     address: {
+//         bullding: '58',
+//         street: 'Ebad El Rahman',
+//         area: 'Mokkatam',
+//         governorate: 'Cairo',
+//         floor: '9',
+//         apartment: '3'
+//     },
+//     default: true,
+//     addressName: 'Home',
+// }
 
 const MyAddress = () => {
     
@@ -44,7 +45,7 @@ const MyAddress = () => {
     }
     
     // useStates
-    const [addresses, setAddresses] = useState([testAddress]);
+    const [addresses, setAddresses] = useState([]);
     
     // functions
     useEffect(() => {
@@ -56,27 +57,6 @@ const MyAddress = () => {
         }
         fetchAddresses();
     },[]);
-    // const fetchAddresses = async () => {
-    //     const addressesList = await getAddresses(uid);
-    //     if(addressesList){
-    //         setAddresses(addressesList);
-    //     }
-    // }
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         fetchAddresses();
-    //     }, [])
-    //   );
-
-    // const onDeleteHandler = async (addressId) => {
-    //     deleteAddress(uid, addressId);
-    //     fetchAddresses();
-    // }
-    
-
-    const addAddressHandler = () => {
-
-    }
     
     if (addresses.length === 0) {
         return (
@@ -101,15 +81,18 @@ const MyAddress = () => {
         return (
             <View>
                 <Header title={'MY ADDRESS BOOK' + ' ' + `(${addresses.length})`} onBackPress={() => router.replace(`profile`)}></Header>
-                <FlatList
-                    data={addresses}
-                    renderItem={({item}) =>
+                
+                    <FlatList
+                        style={{maxHeight: "85%"}}
+                        data={addresses}
+                        renderItem={({item}) =>
                             <Address address={item} userId={uid}/>
-                    }
-                />
-                <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>
-                    <Buttton title={'Add Address'} main={true} onPress={() => router.replace(`account/address/new`)}></Buttton>
-                </View>
+                        }
+                    />
+                    <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>
+                        <Buttton title={'Add Address'} main={true} onPress={() => router.replace(`account/address/new`)}></Buttton>
+                    </View>
+                
 
                 <StatusBar backgroundColor="#001b46"/>
             </View>

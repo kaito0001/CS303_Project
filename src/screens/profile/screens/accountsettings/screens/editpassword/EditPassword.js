@@ -41,8 +41,22 @@ const EditPassword = () => {
     const PassIcon = IconLibrary['pass'];
     
     // functions
-    const handleUpdatePass = () => {
-        // ..........
+    const handleUpdatePassword = async () => {
+    //     await auth.currentUser.reload().then(() => {
+    //         if(auth.currentUser.emailVerified){
+    //             editUser(uid, {...userData, email: newEmail}).catch((error) => console.error(error));
+    //             updateEmail(auth.currentUser, newEmail).catch((error) => console.error(error));
+    //         }
+    //         else{
+    //             return Alert.alert('Email is not verified', 'Verify your email to edit it', [
+    //                 {
+    //                     text: 'Ok',
+    //                     onPress: () => sendEmailVerification(auth.currentUser),
+    //                 },
+    //             ])
+    //         }
+    //     }).catch((error) => console.error(error))
+    // ..........
     }
     
     
@@ -88,7 +102,7 @@ const EditPassword = () => {
             </View>
             
             <View style={{paddingHorizontal: '6%', paddingVertical: 30}}>
-                <Buttton title={'Update Password'} main={true} onPress={handleUpdatePass}></Buttton>
+                <Buttton title={'Update Password'} main={true} onPress={handleUpdatePassword}></Buttton>
             </View>
             
             <StatusBar backgroundColor="#001b46"/>

@@ -15,22 +15,22 @@ const Page = () => {
     }
     
    
-    // const fetchAsyncStorage = () => {
-    //     if ( uid === undefined ) {
-    //         router.replace(`profile`);
-    //     } else {
-    //         router.replace(`profile${uid}`);
-    //     }
-    // }
+    const fetchAsyncStorage = () => {
+        if ( uid === undefined ) {
+            router.replace(`auth/login`);
+        } else {
+            router.replace(`profile${uid}`);
+        }
+    }
     
-    // useEffect(  () => {
-    //     setTimeout( () => fetchAsyncStorage(),5000 );
-    // }, []);
+    useEffect(  () => {
+        setTimeout( () => fetchAsyncStorage(),5000 );
+    }, []);
     
     return (
-        // <Intro />
+        <Intro />
         // <Product/>
-        <Home/>
+        // <Home/>
     );
 }
 
