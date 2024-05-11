@@ -59,9 +59,11 @@ const AddProduct = () => {
                     images: images,
                     isAvailable: true,
                     price: price,
-                    discountPrice: discountPrice,
+                     rating:0,
+                    discount_price: discountPrice,
                     description: description,
-                    quantity: quantity
+                    numericPrice:discountPrice ? parseInt(discountPrice) :parseInt(price) ,
+                    quantity: parseInt(quantity)
                 }
                 const collection = 'products';
                 await addDocFunc(collection, prodData);
