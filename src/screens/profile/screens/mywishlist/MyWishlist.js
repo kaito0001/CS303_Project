@@ -4,16 +4,17 @@ import {
     View,
     Text,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    FlatList
 } from 'react-native';
 
 // global components import
 import Header from '../../../../components/header/Header';
 import Buttton from '../../../../components/buttton/Buttton';
-
+import Product from '../../../../components/product/Product';
 // auth import from firebase
 import { auth } from "../../../../firebase/config";
-import { getWishList } from '../../../../firebase/firestore';
+import { getWishList } from '../../../../firebase/wishlist';
 
 const MyWishlist = () => {
     
