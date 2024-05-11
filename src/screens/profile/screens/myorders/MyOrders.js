@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { router } from 'expo-router';
-import React, {useState, useEffect} from 'react';
-import {router} from 'expo-router';
 import {
     View,
     Text,
@@ -16,105 +14,10 @@ import Buttton from '../../../../components/buttton/Buttton';
 import Order from '../../../../components/order/Order';
 
 // auth import from firebase
-<<<<<<< Updated upstream
 import { auth } from "../../../../firebase/config";
-import { getOrders } from '../../../../firebase/order';
-=======
-import {auth} from "../../../../firebase/config";
->>>>>>> Stashed changes
 
-// const fakeOrdersData = [
-//     {
-//         id: '1',
-//         date: '9/5/2024',
-//         time: '10:59 PM',
-//         status: 'Delivered',
-//         paymentStats: 'Paid',
-//         bill: '6969',
-//         phoneNumber: '01145902559',
-//         address: {
-//             bullding: '58',
-//             street: 'Ebad El Rahman',
-//             area: 'Mokkatam',
-//             governorate: 'Cairo',
-//             floor: '9',
-//             apartment: '3'
-//         },
-//         quantity: 69,
-//         items: [
-//             {
-//                 title: 'sherif',
-//                 quantity: 69,
-//             },
-//             {
-//                 title: 'sherifgdn',
-//                 quantity: 69,
-//             },
-//             {
-//                 title: 'ahmed',
-//                 quantity: 69,
-//             },
-//             {
-//                 title: 'ahmedkhales',
-//                 quantity: 69,
-//             },
-//         ]
-//     },
-//     {
-//         id: '2',
-//         date: '9/5/2024',
-//         time: '11:39 PM',
-//         status: 'Awaiting Processing',
-//         paymentStats: 'Not Paid',
-//         bill: '6969',
-//         phoneNumber: '01145902559',
-//         address: {
-//             bullding: '58',
-//             street: 'Ebad El Rahman',
-//             area: 'Mokkatam',
-//             governorate: 'Cairo',
-//             floor: '9',
-//             apartment: '3'
-//         },
-//         quantity: 69
-//     },
-//     {
-//         id: '3',
-//         date: '10/5/2024',
-//         time: '10:44 PM',
-//         status: 'Delivering',
-//         paymentStats: 'Not Paid',
-//         bill: '6969',
-//         phoneNumber: '01145902559',
-//         address: {
-//             bullding: '58',
-//             street: 'Ebad El Rahman',
-//             area: 'Mokkatam',
-//             governorate: 'Cairo',
-//             floor: '9',
-//             apartment: '3'
-//         },
-//         quantity: 69
-//     },
-//     {
-//         id: '4',
-//         date: '10/5/2024',
-//         time: '02:22 PM',
-//         status: 'Delivered',
-//         paymentStats: 'Not Paid',
-//         bill: '6969',
-//         phoneNumber: '01145902559',
-//         address: {
-//             bullding: '58',
-//             street: 'Ebad El Rahman',
-//             area: 'Mokkatam',
-//             governorate: 'Cairo',
-//             floor: '9',
-//             apartment: '3'
-//         },
-//         quantity: 69
-//     },
-// ]
+import { getOrders } from '../../../../firebase/order';
+
 
 const MyOrders = () => {
     
@@ -126,8 +29,7 @@ const MyOrders = () => {
     
     // useStates
     const [orders, setorders] = useState([]);
-
-    // get user orders
+    
     useEffect(() => {
         const fetchOrders = async () => {
             const orders = await getOrders(uid);
@@ -138,20 +40,11 @@ const MyOrders = () => {
     },[])
     
     
-    if (orders.length === 0) {
-=======
-    const [orders, setorders] = useState(fakeOrdersData);
-
-
     if (orders && orders.length === 0) {
->>>>>>> Stashed changes
         return (
             <View>
-                <Header title={'MY ORDERS' + ' ' + `(${orders.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`} onBackPress={() => router.replace(`profile`)}></Header>
                 
-                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`}
-                        onBackPress={() => router.replace(`profile`)}></Header>
-
                 <View style={{padding: '6%', alignItems: 'center'}}>
                     <Text>
                         You haven't ordered any products from Raya yet,
@@ -172,14 +65,10 @@ const MyOrders = () => {
             </View>
         )
     }  else {
-    } else {
         return (
             <View style={{flex: 1, backgroundColor: '#fafcfb'}} >
-            <View style={{flex: 1, backgroundColor: '#fafcfb'}}>
 
-                <Header title={'MY ORDERS' + ' ' + `(${orders.length})`} onBackPress={() => router.replace(`profile`)}></Header>
-                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`}
-                        onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY ORDERS' + ' ' + `(${orders ? orders.length : 0})`} onBackPress={() => router.replace(`profile`)}></Header>
 
                 <ScrollView>
                     <FlatList
