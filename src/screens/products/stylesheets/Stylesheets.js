@@ -14,12 +14,15 @@ const ProductsStyle = StyleSheet.create({
         paddingVertical: 20,
         borderBottomStartRadius: 15,
         borderBottomEndRadius: 15,
+        flexDirection:'row',
         alignItems: 'center',
     },
     box: {
         flexDirection: 'row',
         backgroundColor: 'white',
-        width: '90%', borderRadius: 5
+        width: '90%',
+        borderRadius: 5,
+        
         
     },
     
