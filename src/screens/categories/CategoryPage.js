@@ -62,17 +62,18 @@ const CategoryPage = () => {
         }
     }
 
-    const searchItems = (searchFor) => {
-        const filteredProducts = allProducts.filter((product) => {
-            return product.title.includes(searchFor);
-        });
-        setProducts(filteredProducts);
-    };
+     const searchItems = (searchFor) => {
+    const filteredProducts = allProducts.filter((product) => {
+        return product.title.toLowerCase().includes(searchFor.toLowerCase());
+    });
+    setProducts(filteredProducts);
+};
 
     return (
         <View style={ categoryStyle.inputContainer}>
 
                             <View style={categoryStyle.header}>
+                                <Text style={categoryStyle.title}> CATEGORY </Text>
                                 <View style={categoryStyle.box}>
                                     <Ionicons name="search-circle-outline" size={40} color="black" />
                                     <TextInput

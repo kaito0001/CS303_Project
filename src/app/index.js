@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import React, { useEffect } from 'react';
 import Intro from '../screens/intro/Intro';
-import Product from '../../src/screens/product/Product';
+
 import { auth } from '../firebase/config';
-import CategoryPage from '../screens/categories/CategoryPage';
+import Category from '../screens/categories/CategoryPage';
+import Cart from '../screens/cart/Cart';
 import Home from '../screens/home/Home';
 
 const Page = () => {
@@ -14,23 +15,21 @@ const Page = () => {
         uid = auth.currentUser.uid;
     }
     
-   
+//    functions
     const fetchAsyncStorage = () => {
         if ( uid === undefined ) {
-            router.replace(`auth/login`);
+            router.replace(`cart`);
         } else {
-            router.replace(`profile${uid}`);
+            router.replace(`cart${uid}`);
         }
     }
     
-    useEffect(  () => {
+    useEffect( () => {
         setTimeout( () => fetchAsyncStorage(),5000 );
     }, []);
     
     return (
-        <Intro />
-        // <Product/>
-        // <Home/>
+        <Intro/>
     );
 }
 

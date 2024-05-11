@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 const MainAddress = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     inputContainer: {
         marginHorizontal: '6%',
-        // padding: 18,
         marginTop: 30,
         flexDirection: 'row',
         alignItems: 'center',
@@ -12,11 +14,11 @@ const MainAddress = StyleSheet.create({
         borderColor: '#99a4b4',
     },
     textInput: {
+        width: '100%',
+        height: '100%',
+        paddingVertical: 18,
+        marginHorizontal: 18,
         borderRadius: 10,
-        marginVertical: 18,
-        paddingHorizontal: 18,
-        width: "100%",
-        height: "100%",
         color: '#001b46',
         fontSize: 14,
         fontWeight: '700',

@@ -5,7 +5,9 @@ import {
     Text,
     Platform,
     Pressable,
+    StatusBar,
     TextInput,
+    ScrollView,
     Alert,
 } from 'react-native';
 
@@ -91,91 +93,95 @@ const EditAddress = () => {
     }
     
     return (
-        <View>
+        <View  style={MainAddress.container} >
             <Header title={'EDIT ADDRESS'} onBackPress={() => router.replace(`account/addresses`)}></Header>
             
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Phone Number"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setPhoneNumber}
-                    value={phoneNumber}
-                />
-            </View>
-            
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Governorate"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setGovernment}
-                    value={government}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Area"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setArea}
-                    value={area}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Streat"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setStreet}
-                    value={street}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Bulding"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setBuilding}
-                    value={building}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Floor"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setFloor}
-                    value={floor}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Apartment"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setApartment}
-                    value={apartment}
-                />
-            </View>
-            <View style={MainAddress.inputContainer}>
-                <TextInput
-                    style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
-                    placeholder="Address Name"
-                    placeholderTextColor="#99a4b4"
-                    onChangeText={setAddressName}
-                    value={addressName}
-                />
-            </View>
-            
-            <View style={{flexDirection: 'row', paddingHorizontal: '6%', paddingVertical: 30}}>
-                <Pressable style={[MainAddress.checkBox, {backgroundColor: check ? '#0041cf' : '#fff'}]} onPress={() => setCheck(!check)}></Pressable>
-                <Text>Make as Default Address</Text>
-            </View>
-            
-            <View style={{paddingHorizontal: '6%'}}>
-                <Buttton title={'Edit Address'} main={true} onPress={editAddressHandler}></Buttton>
-            </View>
+            <ScrollView>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Phone Number"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setPhoneNumber}
+                        value={phoneNumber}
+                    />
+                </View>
+
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Governorate"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setGovernment}
+                        value={government}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Area"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setArea}
+                        value={area}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Streat"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setStreet}
+                        value={street}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Bulding"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setBuilding}
+                        value={building}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Floor"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setFloor}
+                        value={floor}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Apartment"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setApartment}
+                        value={apartment}
+                    />
+                </View>
+                <View style={MainAddress.inputContainer}>
+                    <TextInput
+                        style={[MainAddress.textInput, Platform.OS === 'web' && MainAddress.webTextInput]}
+                        placeholder="Address Name"
+                        placeholderTextColor="#99a4b4"
+                        onChangeText={setAddressName}
+                        value={addressName}
+                    />
+                </View>
+
+                <View style={{flexDirection: 'row', paddingHorizontal: '6%', paddingVertical: 30}}>
+                    <Pressable style={[MainAddress.checkBox, {backgroundColor: check ? '#0041cf' : '#fff'}]} onPress={() => setCheck(!check)}></Pressable>
+                    <Text>Make as Default Address</Text>
+                </View>
+
+                <View style={{paddingHorizontal: '6%', paddingBottom: 30}}>
+                    <Buttton title={'Edit Address'} main={true} onPress={editAddressHandler}></Buttton>
+                </View>
+            </ScrollView>
+
+            <StatusBar backgroundColor="#001b46"/>
         </View>
     )
 }

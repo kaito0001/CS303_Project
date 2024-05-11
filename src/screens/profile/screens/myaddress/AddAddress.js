@@ -5,9 +5,10 @@ import {
     Text,
     Platform,
     Pressable,
+    StatusBar,
     TextInput,
     ScrollView,
-    Alert
+    Alert,
 } from 'react-native';
 
 // stylesheet import
@@ -102,8 +103,10 @@ const AddAddress = () => {
     }
     
     return (
-        <View>
+        <View style={MainAddress.container} >
+            
             <Header title={'ADD ADDRESS'} onBackPress={() => router.replace(`account/addresses`)}></Header>
+
             <ScrollView>
                 <View style={MainAddress.inputContainer}>
                     <TextInput
@@ -184,10 +187,12 @@ const AddAddress = () => {
                     <Text>Make as Default Address</Text>
                 </View>
             
-                <View style={{paddingHorizontal: '6%'}}>
+                <View style={{paddingHorizontal: '6%', paddingBottom: 30}}>
                     <Buttton title={'Add Address'} main={true} onPress={addAddressHandler}></Buttton>
                 </View>
             </ScrollView>
+
+            <StatusBar backgroundColor="#001b46"/>
         </View>
     )
 }

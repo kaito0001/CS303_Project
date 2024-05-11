@@ -1,26 +1,47 @@
 import { Text, Pressable, View, Image, Alert } from "react-native";
 import ProductStyle from "./stylesheets/Stylesheet";
 import { Entypo ,AntDesign,Ionicons} from '@expo/vector-icons';
-import { useState } from "react";
-
-
+import { useState,useEffect } from "react";
+import { router } from "expo-router";
+import { auth } from "../../firebase/config";
+import { addToWishList, deleteWishListItem,getWishList } from "../../firebase/wishlist";
 
 const Product= ({product}) =>{
 
   const [liked,setLiked]=useState(false);
-  const handlePressed= ()=>{
-    Alert.alert(' product id',product.id);
-    router.replace(`product/${product.id}`);
-  }
-  const handleLikePressed= ()=>{
+  let uid;
+   if ( auth.currentUser ) {
+       uid = auth.currentUser.uid;
+   }
+  const handleLikePressed= async()=>{
     if(liked){ 
+      await deleteWishListItem(uid,product.id);
       setLiked(false);
     }
-    else setLiked(true);
+    else {
+      await addToWishList(uid,product)
+      setLiked(true);
+    }
   }
+  const fetchWishList = async () => {
+    try {
+        const wishlistData = await getWishList(uid);
+        wishlistData.forEach(element => {
+          if(element.id===product.id){
+            setLiked(true);
+        }
+        });
+        
+    } catch (error) {
+        console.error(error);
+    }
+    }
+    useEffect(() => {
+      fetchWishList();
+    }, []);
   if(product.isAvailable){
   return (
-      <Pressable style={ProductStyle.Container} onPress={()=> handlePressed()}>
+      <Pressable style={ProductStyle.Container} onPress={()=> router.replace(`product/${product.id}`)}>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
           {
             liked? <Entypo name="heart" size={24} color="red" />:<Entypo name="heart-outlined" size={24} color="black" />

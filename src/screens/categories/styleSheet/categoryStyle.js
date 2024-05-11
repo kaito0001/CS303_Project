@@ -33,7 +33,14 @@ const categoryStyle = StyleSheet.create({
         flex: 1,
         padding: '5%', 
     
-    }
+    },
+    title: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '700',
+        fontFamily: 'sans-serif',
+        margin : 10
+    },
 })
 
 export default categoryStyle;

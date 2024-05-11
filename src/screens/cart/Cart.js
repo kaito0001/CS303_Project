@@ -10,12 +10,15 @@ import {
 // import global component
 import Header from '../../components/header/Header';
 import { auth } from "../../firebase/config"; 
+import { getCart } from '../../firebase/cart';
 
 // import cart components
 import FilledCart from './components/FilledCart';
 import EmptyCart from './components/EmptyCart';
 
 const Cart = () => {
+    
+
     // get current user
     let uid;
     if ( auth.currentUser ) {
@@ -24,11 +27,32 @@ const Cart = () => {
     
     // useStates
     const [cart, setCart] = useState([]);
-    if (cart.length != 0) {
+
+
+
+    useEffect(() => {
+        console.log(uid);
+        fetchcart();
+    }, []);
+
+
+    const fetchcart = async () => {
+        try {
+            const cartData = await getCart(uid);
+
+            setCart(cartData);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+
+    if (cart && cart.length === 0) {
         return (
             <View style={ {flex : 1} }>
 
-                <Header title={'MY CART' + ' ' + `(${cart.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY CART' + ' ' + `(${cart.length})`}></Header>
 
                 <EmptyCart></EmptyCart>
                 <StatusBar backgroundColor="#001b46" />

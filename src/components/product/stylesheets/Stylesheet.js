@@ -4,7 +4,11 @@ const ProductStyle = StyleSheet.create({
         // flex:1,
         backgroundColor:'#ffffff',
         margin:10,
-        borderRadius:50,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor :'#0f86cf',
+        width : 160,
+        marginRight:'50'
         
     },
     image: {
@@ -27,18 +31,21 @@ const ProductStyle = StyleSheet.create({
     },
     discount_price:{
        textDecorationLine:'line-through',
-        color:'#a2a3b8'
+        color:'#a2a3b8',
+        marginLeft:10
     },
     box:{
-        margin:"10%",
+        margin:10,
     },
     like:{
-        width:'21%',
+        width:50,
         padding:10,
-        paddingTop:15,
-        marginLeft:'70%',
-        // margin:10,
-        borderCurve:10,
+        paddingTop:17,
+        marginLeft:100,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius : 10,
+
         backgroundColor:'#f0f4fe',
     },
 })

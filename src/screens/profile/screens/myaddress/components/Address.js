@@ -59,7 +59,7 @@ const Address = ({address, userId}) => {
             <View style={{paddingVertical: 5,flexDirection: 'row'}}>
                 <LocationIcon/>
                 <Text style={AddressStyle.info}>Address</Text>
-                <Text>{address.address.bullding + ' ' + address.address.street + ', ' + address.address.governorate + ', Floor' + address.address.floor + ' | Apartment' + address.address.apartment}</Text>
+                <Text style={{maxWidth: '60%'}} >{address.address.bullding + ' ' + address.address.street + ', ' + address.address.governorate + ', Floor' + address.address.floor + ' | Apartment' + address.address.apartment}</Text>
             </View>
             
             <View style={AddressStyle.buttons}>

@@ -10,7 +10,7 @@ const homeStyle = StyleSheet.create({
     title: {
         color: '#fff',
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: 'bold',
         fontFamily: 'sans-serif'
     },
 
@@ -27,7 +27,8 @@ const homeStyle = StyleSheet.create({
     box: {
         flexDirection: 'row',
         backgroundColor: 'white',
-        width: '90%', borderRadius: 5
+        width: '90%',
+        borderRadius: 5
         
     },
     logo: {
@@ -37,7 +38,7 @@ const homeStyle = StyleSheet.create({
     },
         list: {
             // flexDirection: 'row',
-            padding: '5%', 
+            padding: 35, 
             margin : 10,
             backgroundColor: '#fafcfb',
             borderRadius: 10,

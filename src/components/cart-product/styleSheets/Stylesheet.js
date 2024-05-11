@@ -42,20 +42,25 @@ const productStyle = StyleSheet.create({
         marginLeft: 20,
         paddingBottom: 5,
         borderBottomWidth: 1,
-        borderBottomColor: '#abb8c1'
+        borderBottomColor: '#abb8c1',
+        // width : '50%'
     },
     op: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     like: {
         borderRadius: 15,
         backgroundColor: 'white',
-        padding: 10
+        paddingHorizontal: 10,
+        paddingTop: 10,
+
     },
     delete: {
-        borderRadius: 5,
-        backgroundColor: 'white'
+        borderRadius: 15,
+        backgroundColor: 'white',
+        paddingHorizontal: 10,
+        paddingTop: 10,
     }
 
 })

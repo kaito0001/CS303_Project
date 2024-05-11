@@ -1,12 +1,13 @@
-import { FlatList, StyleSheet, Text, TextInput, View, StatusBar } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, View, StatusBar,Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import {router, useLocalSearchParams} from "expo-router";
 import ProductItem from "../../components/product/Product";
 import Header from "../../components/header/Header"
 import ProductsStyle from "./stylesheets/Stylesheets";
+import IconLibrary from '../../components/icons/icons';
 import { getDocsFunc,getDocFunc, addDocFunc,getProductsByCategory, getProductsBysubCategory, addProduct } from "../../firebase/firestore";
 import { Ionicons } from '@expo/vector-icons';
-
+const IconComponent = IconLibrary['back'];
 
 const Products= () =>{
   const { categoryName } = useLocalSearchParams();
@@ -17,7 +18,12 @@ const Products= () =>{
 
 
   const getProducts =async() => {
-    const prod =await getProductsByCategory(cname);
+    let prod;
+    if(cname){
+    prod =await getProductsByCategory(cname);
+  }else{
+     prod= await getDocsFunc('products');
+  }
     setProducts(prod);
     setallProducts(prod);
 
@@ -28,7 +34,7 @@ const Products= () =>{
  
   const searchItems = (searchFor) => {
     const filteredProducts = allProducts.filter((product) => {
-        return product.title.includes(searchFor);
+        return product.title.toLowerCase().includes(searchFor.toLowerCase());
     });
     setProducts(filteredProducts);
 };
@@ -38,6 +44,9 @@ const Products= () =>{
     <View style={ProductsStyle.Container}>
 
       <View style={ProductsStyle.header}>
+          <Pressable style={{ marginLeft:'3%'}} onPress={()=> router.replace(`home`)} >
+          <IconComponent/>
+          </Pressable>
          <View style={ProductsStyle.box}>
              <Ionicons name="search-circle-outline" size={40} color="black" />
                                     <TextInput

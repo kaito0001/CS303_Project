@@ -13,24 +13,18 @@ import {
 import { getDocsFunc } from '../../firebase/firestore';
 
 // import images
-import tablet from '../../../assets/tablet-716.png';
 import logo from '../../../assets/rayashop_coupon_code.png';
 import img1 from '../../../assets/1714395540744.png';
 import img2 from '../../../assets/1714470708786.png';
 import img3 from '../../../assets/171447050982.png';
 import img4 from '../../../assets/1714470993568.png';
 import img5 from '../../../assets/1714397650490.png';
+
 const offers = [
     { img: img2 },
     { img: img3 },
 ];
-const DATA = [
-    { id : 1,name: "mobile and tablet ", img:  tablet},
-    { id : 2,name: "televisions ", img:tablet },
-    { id : 3,name: "large appliances ", img:tablet},
-    { id : 4,name: "small appliances ", img:  tablet},
-    { id : 5,name: "Kitchen Appliances ", img:tablet},
-];
+
 
 // import global component
 import { auth } from "../../firebase/config"; 
@@ -40,7 +34,7 @@ import homeStyle from './styleSheets/homeStyle';
 import { Ionicons } from '@expo/vector-icons';
 import Product from '../../components/product/Product';
 
-const Cart = () => {
+const Home = () => {
     const [pressed, setPressed] = useState(false);
     const [categories, setCategories] = useState([]);
     const [allProducts, setallProducts] = useState([]);
@@ -91,7 +85,7 @@ const Cart = () => {
     
 
     return (
-        <View style ={{flex : 1}}>
+        <View style ={{flex : 1 }}>
                 <View style={homeStyle.header}>
                 
                     <Pressable
@@ -117,7 +111,7 @@ const Cart = () => {
                     </View>
             </View>
             {(isSearching) ? (
-              
+            
                 <FlatList
                     
                     data={products}
@@ -127,8 +121,7 @@ const Cart = () => {
                     )}
                 />
             ) : (
-                <ScrollView nestedScrollEnabled={true} style={{ backgroundColor: '#fafcfg' }}>
-
+                <ScrollView nestedScrollEnabled={true} style={{ backgroundColor: '#fafcfg' , flex : 1}}>
 
                     <View style={{ alignItems: 'center', margin: 20 }}>
                         <Pressable
@@ -155,18 +148,18 @@ const Cart = () => {
                             </Pressable>
                             <Pressable
                             >
-                                <Image source={img5} style={{ width: 150, height: 150, borderRadius: 20, marginRight: 10 }}></Image>
+                                    <Image source={img5 } style={{ width: 150, height: 150, borderRadius: 20, marginRight: 10 }}></Image>
                             </Pressable>
                         </View>
                         <Text style={homeStyle.title}> Categories </Text>
                     
                         <FlatList
-                            style={homeStyle.list}
+                            // style={homeStyle.list}
                             numColumns={2}
                             data={categories}
                             renderItem={({ item }) => (
-                                <Pressable style={{ margin: 20, alignItems: 'center' }}>
-                                    <Image source={item.image} style={{ width: 50, height: 50, margin: 20 }}></Image>
+                                <Pressable style={{ margin: 20, alignItems: 'center' }} onPress={() => router.replace(`products?categoryName=${item.category}`)} >
+                                    <Image source={{ uri :item.image }} style={{ width: 50, height: 50, margin: 20 }}></Image>
                                     <Text style={homeStyle.txt}>{item.category}</Text>
                                 </Pressable>
                             )}
@@ -176,7 +169,7 @@ const Cart = () => {
                             
                         <Text style={homeStyle.title}> OUR TOP OFFERS </Text>
                         <FlatList
-                            style={homeStyle.list}
+                            // style={homeStyle.list}
                             horizontal={true}
                             data={products}
                             renderItem={({ item }) => (
@@ -187,7 +180,6 @@ const Cart = () => {
 
                     </View>
                     <StatusBar backgroundColor="#001b46" />
-                
                 </ScrollView>
             )}
             </View>
@@ -195,4 +187,4 @@ const Cart = () => {
 
 }
 
-export default Cart;
+export default Home;
