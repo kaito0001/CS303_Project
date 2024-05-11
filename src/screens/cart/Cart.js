@@ -10,12 +10,15 @@ import {
 // import global component
 import Header from '../../components/header/Header';
 import { auth } from "../../firebase/config"; 
+import { getCart } from '../../firebase/cart';
 
 // import cart components
 import FilledCart from './components/FilledCart';
 import EmptyCart from './components/EmptyCart';
 
 const Cart = () => {
+    
+
     // get current user
     let uid;
     if ( auth.currentUser ) {
@@ -24,7 +27,28 @@ const Cart = () => {
     
     // useStates
     const [cart, setCart] = useState([]);
-    if (cart.length != 0) {
+
+
+
+    useEffect(() => {
+        console.log(uid);
+        fetchcart();
+    }, []);
+
+
+    const fetchcart = async () => {
+        try {
+            const cartData = await getCart(uid);
+
+            setCart(cartData);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+
+    if (cart.length === 0) {
         return (
             <View style={ {flex : 1} }>
 

@@ -12,6 +12,7 @@ import {
 // import global component
 import img from '../../../../assets/shopping-cart-with-cross-mark-wireless-paymant-icon-shopping-bag-failure-paymant-sign-online-shopping-vector_662353-912.jpg';
 import Button from '../../../components/buttton/Buttton';
+import { Route } from 'expo-router/build/Route';
 
 const EmptyCart = () => {
 
@@ -37,7 +38,7 @@ const EmptyCart = () => {
         </View>
         
         <View style={{paddingHorizontal: '6%'}}>
-            <Button title={'Browser Products'} main={true}></Button>
+            <Button title={'Browser Products'} main={true} ></Button>
         </View>
     </View>
    )}
