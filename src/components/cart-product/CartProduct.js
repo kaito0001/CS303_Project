@@ -93,12 +93,19 @@ let uid;
                 >
                     <Image src={item.images[0]} style={productStyle.img}></Image>
                     <View style={{justifyContent : 'center'}}>
-                        <Text style={{ fontSize: 10 ,width :'50%' ,marginLeft : 15}}>{item.title}</Text>
-                        <View style ={{flexDirection : 'row' ,alignItems :'center',marginLeft : 15}}>
+                        <Text style={{ fontSize: 10, width: '75%', marginLeft: 15 }}>{item.title}</Text>
+                        {
+                            (item.discount_price)?<View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
                         <Text style={productStyle.price}>{item.discount_price}</Text>
                             <Text style={productStyle.oldPrice}>{item.price}</Text>
-                            </View>
-                    </View>
+                            </View> 
+                    :
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
+                        <Text style={productStyle.price}>{item.price}</Text>
+                            </View> 
+                    
+                        }
+                        </View>
                 </Pressable>
                 <View style={productStyle.qty }>
                     <Text style={{ fontSize : 10 }}>QTY</Text>
