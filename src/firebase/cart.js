@@ -23,7 +23,18 @@ import { db } from "./config";
       return null;
     }
 };
-  
+
+  const deleteCart = async (id) => {
+    try {
+      const docRef = doc(db, 'cart', id);
+      await deleteDoc(docRef);
+      console.error(`Deleted cart with ID: ${id}`);      
+    } catch (error) {
+      console.error(`Error deleting cart with ID: ${id}   error: ${error}`);
+      return null;
+    }
+  }
+
 
 const deleteCartItem = async (userId, productId) => {
     try {
@@ -83,4 +94,4 @@ const addCartItem = async (userId, product) => {
         }
 }
   
-  export { getCart, addCartItem,  deleteCartItem  };
+  export { getCart, deleteCart, addCartItem,  deleteCartItem  };

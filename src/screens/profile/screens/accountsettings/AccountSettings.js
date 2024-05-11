@@ -5,6 +5,7 @@ import {
     Text,
     Pressable,
     StyleSheet, StatusBar,
+    Alert,
 } from 'react-native';
 
 // stylesheet import
@@ -19,7 +20,7 @@ import IconLibrary from "../../../../components/icons/icons";
 // firebase functions import
 import { auth } from "../../../../firebase/config";
 import { getUser, deleteUserFS } from '../../../../firebase/users';
-import { deleteUser } from 'firebase/auth';
+import { deleteUser, sendEmailVerification } from 'firebase/auth';
 
 // fake data
 const initailValue = {
@@ -65,7 +66,37 @@ const AccountSettings = () => {
     }
     useEffect(() => {
         getUserData();
-    },[])
+    },[]);
+
+    const onChangeEmailHandler = () => {
+        if(!auth.currentUser.emailVerified){
+            sendEmailVerification(auth.currentUser);
+            return Alert.alert('Email verification link has been sent', 'Verify your email to be able to edit it', [
+                {
+                    text: 'Ok',
+                    onPress: () => router.replace(`account/edit/email`),
+                },
+            ])
+        }
+        else{
+            router.replace(`account/edit/email`);
+        }
+    }
+
+    const onChangePasswordHandler = () => {
+        if(!auth.currentUser.emailVerified){
+            sendEmailVerification(auth.currentUser);
+            return Alert.alert('Email verification link has been sent', 'Verify your email to be able to edit it', [
+                {
+                    text: 'Ok',
+                    onPress: () => router.replace(`account/edit/password`),
+                },
+            ])
+        }
+        else{
+            router.replace(`account/edit/email`);
+        }
+    }
     
     return (
         <View>
@@ -102,7 +133,7 @@ const AccountSettings = () => {
                         <Text style={AccountStyle.txt}>Email</Text>
                         <Text style={AccountStyle.txt}>{user.email}</Text>
                     </View>
-                    <Pressable onPress={() => router.replace(`account/edit/email`)}>
+                    <Pressable onPress={onChangeEmailHandler}>
                         <EditIcon/>
                     </Pressable>
                 </View>
@@ -115,7 +146,7 @@ const AccountSettings = () => {
                         <Text style={AccountStyle.txt}>Password</Text>
                         <Text style={AccountStyle.txt}>******</Text>
                     </View>
-                    <Pressable onPress={() => router.replace(`account/edit/password`)}>
+                    <Pressable onPress={onChangePasswordHandler}>
                         <EditIcon/>
                     </Pressable>
                 </View>

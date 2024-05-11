@@ -24,7 +24,7 @@ const Page = () => {
         }
     }
     
-    useEffect(  () => {
+    useEffect( () => {
         setTimeout( () => fetchAsyncStorage(),5000 );
     }, []);
     

@@ -20,8 +20,9 @@ import checkOutStyle from './stylesheets/Stylesheet';
 import { AntDesign } from '@expo/vector-icons';
 import checked from '../../../assets/checked.png';
 import unchecked from '../../../assets/unchecked.png';
-import { getCart } from '../../firebase/cart';
+import { deleteCart, getCart } from '../../firebase/cart';
 import { addOrder } from '../../firebase/order';
+import { getAddresses } from '../../firebase/address';
 
 const testAddress = {
     name: 'Sherif Omar',
@@ -40,43 +41,106 @@ const testAddress = {
 
 
 const Checkout = () => {
+
+    // get user
+    let uid;
+    if ( auth.currentUser ) {
+        uid = auth.currentUser.uid;
+    }
     
-    const [address, setAddress] = useState([testAddress]);
+    const [address, setAddress] = useState(null);
     const [pressed, setPressed] = useState(false);
 
 
     const [cart, setCart] = useState([]);
 
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState();
     const ORDER = [{ }];
-    let uid;
-    if ( auth.currentUser ) {
-        uid = auth.currentUser.uid;
-    }
 
     useEffect(() => {
-        console.log(uid);
+        // console.log(uid);
         fetchcart();
     }, []);
 
+    // get default address
+    useEffect(() => {
+        const fetchDefaultAddress = async () => {
+            const addresses = await getAddresses(uid);
+            const address = addresses.find((address) => 
+                address.default
+            )
+            
+            setAddress(address);
+        }
+
+        fetchDefaultAddress();
+    },[])
 
     const fetchcart = async () => {
         try {
             const cartData = await getCart(uid);
             setCart(cartData);
-
         } catch (error) {
             console.error(error);
         }
     }
-    
-    
+
+    const getCurrentDate = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+};
+
+const getCurrentTime = () => {
+    const date = new Date();
+    return `${date.getHours() > 12 ? date.getHours() - 12 : date.getHours()}:${('0' + date.getMinutes()).slice(-2)} ${date.getHours() > 12 ? 'PM' : 'AM'}`;
+};
+
+const getBill = () => {
+    let sum = 0;
+    cart.map((item) => {
+        sum += item.numericPrice;
+    });
+    return sum; // Return the total bill
+}
+
+    const submitHandler = async () => {
+        const items = cart.map((item) => {
+            return {title: item.title, quantity: item.quantity}
+        })
+        const order = {
+            id: Math.random().toString(),
+            date: getCurrentDate(),
+            time: getCurrentTime(),
+            status: 'Awaiting Processing',
+            paymentStats: 'Not Paid',
+            bill: getBill(),
+            phoneNumber: address.phoneNumber,
+            address: address.address,
+            quantity: cart.length,
+            items: items,
+        }
+        setOrder(order);
+        
+        await addOrder(uid, order).then( async () => {
+            await deleteCart(uid);
+            router.replace('home')
+        }).catch((error) => console.error(error))
+    }
+
+    const deleteOrderHandler = async () => {
+        
+    }
 
     return (
         <View style = {{flex : 1}}>
             <Header title={'checkout'} onBackPress={() => router.replace('cart')}></Header>
             <ScrollView >
-                <Address address={testAddress} admin={false} />
+                {address && 
+                    <Address address={address} />
+                }
 
                 <View style={checkOutStyle.page}> 
                     
@@ -116,9 +180,9 @@ const Checkout = () => {
                             </View>
                                 
                     </View>
-                    <Pressable style={checkOutStyle.Button2} >
-                <Text style={checkOutStyle.ButtonTxT2}> SUBMIT </Text>
-                </Pressable>
+                    <Pressable style={checkOutStyle.Button2} onPress={submitHandler}>
+                        <Text style={checkOutStyle.ButtonTxT2}> SUBMIT </Text>
+                    </Pressable>
 
                 </View>
             </ScrollView>
