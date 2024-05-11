@@ -48,11 +48,11 @@ const Cart = () => {
     }
     
 
-    if (cart && cart.length === 0) {
+    if (cart && cart.length === 0 ||cart ===null ) {
         return (
             <View style={ {flex : 1} }>
 
-                <Header title={'MY CART' + ' ' + `(${cart.length})`}></Header>
+                <Header title={'MY CART' + ' ' + `( 0 )`}></Header>
 
                 <EmptyCart></EmptyCart>
                 <StatusBar backgroundColor="#001b46" />
@@ -63,7 +63,7 @@ const Cart = () => {
         return (
             <View style={ {flex : 1} }>
 
-                <Header title={'MY CART' + ' ' + `(${cart.length})`} showSearch={true} ></Header>
+                <Header title={'MY CART' + ' ' + `(${cart&&cart.length})`} showSearch={true} ></Header>
 
                 <FilledCart></FilledCart>
                 <StatusBar backgroundColor="#001b46" />

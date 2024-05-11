@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { router } from 'expo-router';
+import { router , useLocalSearchParams} from 'expo-router';
 import {
     View,
     StatusBar,
@@ -11,6 +11,9 @@ import {
     ScrollView
 } from 'react-native';
 import { getDocsFunc } from '../../firebase/firestore';
+import IconLibrary from '../../components/icons/icons';
+const IconComponent = IconLibrary['back'];
+
 
 // import images
 import logo from '../../../assets/rayashop_coupon_code.png';
@@ -42,13 +45,10 @@ const Home = () => {
     const [search, setSearch] = useState('');
     const [isSearching, setIsSearch] = useState(false);
 
-       // useEffect
-       useEffect(() => {
-        fetchCategories();
-    }, []);
-   
       useEffect(() => {
-        fetchProducts();
+          fetchProducts();
+        fetchCategories();
+
     }, []);
 
     
@@ -76,11 +76,14 @@ const Home = () => {
 
     const searchItems = (searchFor) => {
         const filteredProducts = allProducts.filter((product) => {
-            return product.title.includes(searchFor);
-        });
-        setProducts(filteredProducts);
-    };
-
+            if (product && product.title) {
+                return product.title.toLowerCase().includes(searchFor.toLowerCase());
+            } else {
+                return 0;
+        }
+    });
+    setProducts(filteredProducts);
+};
     
     
 
@@ -112,14 +115,22 @@ const Home = () => {
             </View>
             {(isSearching) ? (
             
-                <FlatList
-                    
-                    data={products}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <ProductItem product={item} />
-                    )}
-                />
+                <View style={{flex:1,backgroundColor: '#fafcfb'}}>
+
+                        
+                            
+
+                                <FlatList
+                                data={products}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <Product product={item}/>
+                                )}
+                                />
+                                
+                                <StatusBar backgroundColor="#001b46"/>
+
+                            </View>
             ) : (
                 <ScrollView nestedScrollEnabled={true} style={{ backgroundColor: '#fafcfg' , flex : 1}}>
 

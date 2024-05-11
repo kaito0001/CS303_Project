@@ -17,24 +17,21 @@ import ProductItem from "../../components/product/Product";
 import tablet from '../../../assets/tablet-716.png';
 import { getDocsFunc } from '../../firebase/firestore';
 import { Ionicons } from '@expo/vector-icons';
-
+import Product from '../../components/product/Product';
 
 const CategoryPage = () => {
 
-    const [pressed, setPressed] = useState(false);
+       const [pressed, setPressed] = useState(false);
     const [categories, setCategories] = useState([]);
     const [allProducts, setallProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState('');
     const [isSearching, setIsSearch] = useState(false);
 
-       // useEffect
-       useEffect(() => {
-        fetchCategories();
-    }, []);
-   
       useEffect(() => {
-        fetchProducts();
+          fetchProducts();
+        fetchCategories();
+
     }, []);
 
     
@@ -42,7 +39,6 @@ const CategoryPage = () => {
     const fetchCategories = async () => {
         try {
             const categoriesData = await getDocsFunc('categories');
-           
             setCategories(categoriesData);
             
         } catch (error) {
@@ -53,7 +49,6 @@ const CategoryPage = () => {
     const fetchProducts = async () => {
         try {
             const productsData = await getDocsFunc('products');
-           
             setallProducts(productsData);
             setProducts(productsData)
             
@@ -62,13 +57,16 @@ const CategoryPage = () => {
         }
     }
 
-     const searchItems = (searchFor) => {
-    const filteredProducts = allProducts.filter((product) => {
-        return product.title.toLowerCase().includes(searchFor.toLowerCase());
+    const searchItems = (searchFor) => {
+        const filteredProducts = allProducts.filter((product) => {
+            if (product && product.title) {
+                return product.title.toLowerCase().includes(searchFor.toLowerCase());
+            } else {
+                return 0;
+        }
     });
     setProducts(filteredProducts);
 };
-
     return (
         <View style={ categoryStyle.inputContainer}>
 
@@ -93,14 +91,19 @@ const CategoryPage = () => {
                             </View>
             {isSearching? (                                
               
-                <FlatList
-                    style={categoryStyle.list}
-                    data={products}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <ProductItem product={item}/>
-                    )}
-                    />
+                <View style={{flex:1,backgroundColor: '#fafcfb'}}>
+
+                                <FlatList
+                                data={products}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <Product product={item}/>
+                                )}
+                                />
+                                
+                                <StatusBar backgroundColor="#001b46"/>
+
+                            </View>
                 ):(
                 <FlatList
                     style={categoryStyle.list}
