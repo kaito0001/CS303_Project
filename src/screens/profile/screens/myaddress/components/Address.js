@@ -15,7 +15,7 @@ import IconLibrary from "../../../../../components/icons/icons";
 // firebase functions import
 import { deleteAddress } from '../../../../../firebase/address';
 
-const Address = ({address, userId}) => {
+const Address = ({address, userId ,admin}) => {
     
     // icons import from library
     const UserIcon = IconLibrary['user'];
@@ -69,8 +69,17 @@ const Address = ({address, userId}) => {
                 </Pressable>
 
                 <Pressable style={AddressStyle.button} onPress={deleteHandler}>
-                    <DeleteIcon/>
-                    <Text style={{color:'red', marginLeft: 10}}>Delete Address</Text>
+                    {
+                        (admin) ? 
+                            <View>
+                                <DeleteIcon />
+                                <Text style={{color:'red', marginLeft: 10}}>Delete Address</Text>
+                            </View> : <View />
+                        
+                        
+                    }
+                    
+                    
                 </Pressable>
             </View>
             

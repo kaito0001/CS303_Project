@@ -76,7 +76,7 @@ const Checkout = () => {
         <View style = {{flex : 1}}>
             <Header title={'checkout'} onBackPress={() => router.replace('cart')}></Header>
             <ScrollView >
-                <Address address={testAddress} />
+                <Address address={testAddress} admin={false} />
 
                 <View style={checkOutStyle.page}> 
                     

@@ -7,8 +7,17 @@ import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 export default function TabLayout() {
     return (
-        <Tabs screenOptions={{
-            tabBarActiveTintColor: 'blue'
+        <Tabs screenOptions={{ 
+            headerShown: false,
+            tabBarStyle: {
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                left: 0,
+                height: 72,
+                elevation: 0,
+                backgroundColor:'white'
+            }
         }}>
             <Tabs.Screen
             name="home"
