@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, Text,  View, StatusBar,Image, Dimensions , ScrollView,Pressable} from "react-native";
+import {router, useLocalSearchParams} from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Entypo ,AntDesign,Ionicons} from '@expo/vector-icons';
 import ProductItem from '../../components/product/Product'
@@ -7,6 +8,7 @@ import { getProductsByCategory, getProduct } from "../../firebase/firestore";
 import Buttton from "../../components/buttton/Buttton";
 import { auth } from "../../firebase/config";
 import IconLibrary from '../../components/icons/icons';
+import { addToWishList, deleteWishListItem, getWishList } from "../../firebase/wishlist";
 
 const screenwidth = Dimensions.get('window').width;
 const screenheight = Dimensions.get('window').height;
@@ -22,20 +24,32 @@ const Product= ({id}) =>{
        uid = auth.currentUser.uid;
    }
 
-  const handleLikePressed= ()=>{
+  const handleLikePressed= async()=>{
     if(liked){ 
+      await deleteWishListItem(uid,id);
       setLiked(false);
     }
     else {
+      await addToWishList(uid,item)
       setLiked(true);
     }
   }
-  const handleBackPress =async() => {
-    
-  }
+  const fetchWishList = async () => {
+    try {
+        const wishlistData = await getWishList(uid);
+        wishlistData.forEach(element => {
+          if(element.id===id){
+            setLiked(true);
+        }
+        });
+        
+    } catch (error) {
+        console.error(error);
+    }
+    }
   const handleCartPress =async() => {
-   
-}
+      
+  }
 
   const getItem =async() => {
     try {
@@ -58,10 +72,8 @@ const Product= ({id}) =>{
 // }
   useEffect(() => {
     getItem();
-    // if(item){
-    // getSimProd();
-    // }
-  }, [item]);
+    fetchWishList();
+  }, []);
  
 
   
@@ -69,7 +81,7 @@ const Product= ({id}) =>{
   return (
     <View style={ProductStyle.Container}>
         <View style={ProductStyle.header}>
-          <Pressable style={ProductStyle.back} onPress={()=> handleBackPress()} >
+          <Pressable style={ProductStyle.back} onPress={()=> router.replace(`home`)} >
           <IconComponent/>
           </Pressable>
         <Pressable style={ProductStyle.like} onPress={()=> handleLikePressed()}>
@@ -124,7 +136,7 @@ const Product= ({id}) =>{
             </View>
         </View>
         
-        <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text>
+        {/* <Text style={ProductStyle.textSimilar}>SIMILAR PRODUCTS</Text> */}
         {/* <FlatList
         horizontal={true}
         data={simprod}
