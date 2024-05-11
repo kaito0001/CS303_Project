@@ -38,8 +38,8 @@ const Account = ({ visible, setIsLogin }) => {
     }
     
     // useStates
-    const [name, setName] = useState();
-    const [userData, setUserData] = useState();
+    const [name, setName] = useState('');
+    const [userData, setUserData] = useState('');
     const [img, setImg] = useState('');
     
     // functions

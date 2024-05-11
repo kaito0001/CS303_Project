@@ -13,23 +13,35 @@ import {
 
 // stylesheet import
 import HandleOrderStyle from './stylesheets/Styelsheet';
+import { deleteOrder, editOrder } from '../../../../firebase/order';
 
 const HandleOrder = ({order, who}) => {
     
+    // get user
+    let uid;
+    if ( auth.currentUser ) {
+        uid = auth.currentUser.uid;
+    }
+
     // useState
     const [status, setStatus] = useState('');
     const [paymentStats, setPaymentStats] = useState('');
     
     // functions
-    const updateStatus = (status) => {
+    const updateStatus = async (status) => {
+        const newOrder = {...order, status: status}
+        await editOrder(uid, order.id, newOrder);
         // .........
     }
     
-    const updatePaymentStatus = (paymentStatus) => {
+    const updatePaymentStatus = async (paymentStatus) => {
+        const newOrder = {...order, paymentStatus: paymentStatus}
+        await editOrder(uid, order.id, newOrder);
         // .........
     }
     
-    const deleteOrder = () => {
+    const deleteOrderHandler = async () => {
+        await deleteOrder(uid, order.id);
         // .........
     }
     
@@ -59,7 +71,7 @@ const HandleOrder = ({order, who}) => {
                     <></>
                 )}
                 {status === 'Awaiting Processing' ? (
-                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrder}>
+                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrderHandler}>
                         <Text style={HandleOrderStyle.buttonTxT}>Cancle</Text>
                     </Pressable>
                 ) : (
@@ -68,7 +80,7 @@ const HandleOrder = ({order, who}) => {
                 {status !== 'Delivered' ? (
                     <></>
                 ) : (
-                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrder}>
+                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrderHandler}>
                         <Text style={HandleOrderStyle.buttonTxT}>Delete</Text>
                     </Pressable>
                 )}
@@ -85,7 +97,7 @@ const HandleOrder = ({order, who}) => {
                     <></>
                 )}
                 {status === 'Awaiting Processing' ? (
-                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrder} >
+                    <Pressable style={[HandleOrderStyle.button, {backgroundColor: 'red'}]} onPress={deleteOrderHandler} >
                         <Text style={HandleOrderStyle.buttonTxT}>Cancle</Text>
                     </Pressable>
                 ) : (

@@ -21,7 +21,7 @@ import { AntDesign } from '@expo/vector-icons';
 import checked from '../../../assets/checked.png';
 import unchecked from '../../../assets/unchecked.png';
 import { deleteCart, getCart } from '../../firebase/cart';
-import { addOrder } from '../../firebase/order';
+import { addOrder, deleteOrder } from '../../firebase/order';
 import { getAddresses } from '../../firebase/address';
 
 const testAddress = {
@@ -130,8 +130,9 @@ const getBill = () => {
         }).catch((error) => console.error(error))
     }
 
+    // use it on deleting order
     const deleteOrderHandler = async () => {
-        
+        await deleteOrder(uid, order.id);
     }
 
     return (
