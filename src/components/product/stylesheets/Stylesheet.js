@@ -4,7 +4,10 @@ const ProductStyle = StyleSheet.create({
         // flex:1,
         backgroundColor:'#ffffff',
         margin:10,
-        borderRadius:50,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor :'#0f86cf',
+        width : 200
         
     },
     image: {
@@ -30,13 +33,13 @@ const ProductStyle = StyleSheet.create({
         color:'#a2a3b8'
     },
     box:{
-        margin:"10%",
+        margin:10,
     },
     like:{
-        width:'21%',
+        width:50,
         padding:10,
         paddingTop:15,
-        marginLeft:'70%',
+        marginLeft:100,
         // margin:10,
         borderCurve:10,
         backgroundColor:'#f0f4fe',
