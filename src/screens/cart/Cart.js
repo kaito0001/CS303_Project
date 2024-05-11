@@ -52,7 +52,7 @@ const Cart = () => {
         return (
             <View style={ {flex : 1} }>
 
-                <Header title={'MY CART' + ' ' + `(${cart.length})`} onBackPress={() => router.replace(`profile`)}></Header>
+                <Header title={'MY CART' + ' ' + `(${cart.length})`}></Header>
 
                 <EmptyCart></EmptyCart>
                 <StatusBar backgroundColor="#001b46" />

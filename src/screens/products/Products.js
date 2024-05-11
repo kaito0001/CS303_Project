@@ -44,7 +44,7 @@ const Products= () =>{
     <View style={ProductsStyle.Container}>
 
       <View style={ProductsStyle.header}>
-          <Pressable style={{ marginLeft:'3%'}} onPress={()=> router.replace(`category`)} >
+          <Pressable style={{ marginLeft:'3%'}} onPress={()=> router.replace(`home`)} >
           <IconComponent/>
           </Pressable>
          <View style={ProductsStyle.box}>

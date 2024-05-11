@@ -4,10 +4,10 @@ const ProductStyle = StyleSheet.create({
         // flex:1,
         backgroundColor:'#ffffff',
         margin:10,
-        borderRadius: 50,
+        borderRadius: 20,
         borderWidth: 1,
         borderColor :'#0f86cf',
-        width : '45%',
+        width : 160,
         marginRight:'50'
         
     },
@@ -40,10 +40,12 @@ const ProductStyle = StyleSheet.create({
     like:{
         width:50,
         padding:10,
-        paddingTop:15,
+        paddingTop:17,
         marginLeft:100,
-        // margin:10,
-        borderCurve:10,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius : 10,
+
         backgroundColor:'#f0f4fe',
     },
 })

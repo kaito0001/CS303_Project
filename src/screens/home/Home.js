@@ -158,7 +158,7 @@ const Home = () => {
                             numColumns={2}
                             data={categories}
                             renderItem={({ item }) => (
-                                <Pressable style={{ margin: 20, alignItems: 'center' }} >
+                                <Pressable style={{ margin: 20, alignItems: 'center' }} onPress={() => router.replace(`products?categoryName=${item.category}`)} >
                                     <Image source={{ uri :item.image }} style={{ width: 50, height: 50, margin: 20 }}></Image>
                                     <Text style={homeStyle.txt}>{item.category}</Text>
                                 </Pressable>

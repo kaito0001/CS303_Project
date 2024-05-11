@@ -73,6 +73,7 @@ const CategoryPage = () => {
         <View style={ categoryStyle.inputContainer}>
 
                             <View style={categoryStyle.header}>
+                                <Text style={categoryStyle.title}> CATEGORY </Text>
                                 <View style={categoryStyle.box}>
                                     <Ionicons name="search-circle-outline" size={40} color="black" />
                                     <TextInput

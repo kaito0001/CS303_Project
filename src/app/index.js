@@ -10,26 +10,26 @@ import Home from '../screens/home/Home';
 const Page = () => {
     
     // get current user
-    // let uid;
-    // if ( auth.currentUser ) {
-    //     uid = auth.currentUser.uid;
-    // }
+    let uid;
+    if ( auth.currentUser ) {
+        uid = auth.currentUser.uid;
+    }
     
 //    functions
-    // const fetchAsyncStorage = () => {
-    //     if ( uid === undefined ) {
-    //         router.replace(`cart`);
-    //     } else {
-    //         router.replace(`cart${uid}`);
-    //     }
-    // }
+    const fetchAsyncStorage = () => {
+        if ( uid === undefined ) {
+            router.replace(`cart`);
+        } else {
+            router.replace(`cart${uid}`);
+        }
+    }
     
-    // useEffect(  () => {
-    //     setTimeout( () => fetchAsyncStorage(),5000 );
-    // }, []);
+    useEffect(  () => {
+        setTimeout( () => fetchAsyncStorage(),5000 );
+    }, []);
     
     return (
-        <Home/>
+        <Intro/>
     );
 }
 

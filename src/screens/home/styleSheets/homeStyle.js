@@ -27,7 +27,7 @@ const homeStyle = StyleSheet.create({
     box: {
         flexDirection: 'row',
         backgroundColor: 'white',
-        width: 300,
+        width: '90%',
         borderRadius: 5
         
     },

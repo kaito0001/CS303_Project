@@ -48,7 +48,7 @@ const Checkout = () => {
     const [cart, setCart] = useState([]);
 
     const [order, setOrder] = useState([]);
-
+    const ORDER = [{ }];
     let uid;
     if ( auth.currentUser ) {
         uid = auth.currentUser.uid;
@@ -69,14 +69,12 @@ const Checkout = () => {
             console.error(error);
         }
     }
-    const handleSubmit = () => {
-        
-    }
+    
     
 
     return (
         <View style = {{flex : 1}}>
-            <Header title={'checkout'} onBackPress={true}></Header>
+            <Header title={'checkout'} onBackPress={() => router.replace('cart')}></Header>
             <ScrollView >
                 <Address address={testAddress} />
 
@@ -118,7 +116,7 @@ const Checkout = () => {
                             </View>
                                 
                     </View>
-                    <Pressable style={checkOutStyle.Button2} onPress={handleSubmit()}>
+                    <Pressable style={checkOutStyle.Button2} >
                 <Text style={checkOutStyle.ButtonTxT2}> SUBMIT </Text>
                 </Pressable>
 
