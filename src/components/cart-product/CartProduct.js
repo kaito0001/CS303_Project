@@ -15,6 +15,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { getWishList,addToWishList,deleteWishListItem } from "../../firebase/wishlist";
 import { addCartItem, deleteCartItem, getCart } from "../../firebase/cart";
 import { auth } from "../../firebase/config";
+import { router } from "expo-router";
 
 const CartProduct = ({item}) => {
 
@@ -43,6 +44,7 @@ let uid;
         await addToWishList(uid,item)
         setLiked(true);
         }
+        router.replace('cart');
     }
     const fetchWishList = async () => {
         try {
@@ -66,6 +68,8 @@ let uid;
         await addCartItem(uid,item)
         setIsDeleted(false);
         }
+        router.replace('cart');
+
     }
     const fetchCartList = async () => {
         try {

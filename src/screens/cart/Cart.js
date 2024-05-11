@@ -34,6 +34,7 @@ const Cart = () => {
         console.log(uid);
         fetchcart();
     }, []);
+    
 
 
     const fetchcart = async () => {
@@ -45,6 +46,7 @@ const Cart = () => {
         } catch (error) {
             console.error(error);
         }
+        
     }
     
 
