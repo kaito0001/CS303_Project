@@ -7,7 +7,8 @@ const ProductStyle = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 1,
         borderColor :'#0f86cf',
-        width : 200
+        width : '45%',
+        marginRight:'50'
         
     },
     image: {
@@ -30,7 +31,8 @@ const ProductStyle = StyleSheet.create({
     },
     discount_price:{
        textDecorationLine:'line-through',
-        color:'#a2a3b8'
+        color:'#a2a3b8',
+        marginLeft:10
     },
     box:{
         margin:10,
