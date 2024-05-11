@@ -17,7 +17,12 @@ const Products= () =>{
 
 
   const getProducts =async() => {
-    const prod =await getProductsByCategory(cname);
+    let prod;
+    if(cname){
+    prod =await getProductsByCategory(cname);
+  }else{
+     prod= await getDocsFunc('products');
+  }
     setProducts(prod);
     setallProducts(prod);
 
@@ -28,7 +33,7 @@ const Products= () =>{
  
   const searchItems = (searchFor) => {
     const filteredProducts = allProducts.filter((product) => {
-        return product.title.includes(searchFor);
+        return product.title.toLowerCase().includes(searchFor.toLowerCase());
     });
     setProducts(filteredProducts);
 };
