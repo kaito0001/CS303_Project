@@ -144,7 +144,7 @@ const Login = () => {
                     <View style={LoginStyle.line} ></View>
                 </View>
                 
-                <View style={{marginHorizontal: '6%'}}>
+                <View style={{marginHorizontal: '6%', marginBottom: 30}}>
                     <Text style={LoginStyle.txt2} >New to Rayashop? Create an account for quick and easy checkout experience.</Text>
                     <Buttton title={'Create Account'} main={false} onPress={() => router.replace('auth/register')}></Buttton>
                 </View>

@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import {
     View,
     Text,
+    Image,
     Pressable,
 } from 'react-native';
 
@@ -19,6 +20,15 @@ import Choice from '../../../../components/choice/Choice';
 import { auth } from "../../../../firebase/config";
 import { getUser } from '../../../../firebase/users';
 
+// image picker import
+import * as ImagePicker from 'expo-image-picker';
+
+// storage functions import
+import { uploadUserImage } from '../../../../firebase/storage';
+
+// firestore functions import
+import { addDocFunc } from '../../../../firebase/firestore';
+
 const Account = ({ visible, setIsLogin }) => {
     
     // get current user
@@ -30,6 +40,7 @@ const Account = ({ visible, setIsLogin }) => {
     // useStates
     const [name, setName] = useState();
     const [userData, setUserData] = useState();
+    const [img, setImg] = useState('');
     
     // functions
     const handleLogout = () => {
@@ -37,13 +48,31 @@ const Account = ({ visible, setIsLogin }) => {
         setIsLogin(false);
     }
 
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+        const pickerResult = result.assets[0];
+        try {
+            if (!pickerResult.cancelled) {
+                const uploadUrl = await uploadUserImage(pickerResult.uri, uid);
+                setImg(uploadUrl)
+            }
+        } catch (e) {
+            console.log(e);
+            alert("Upload failed, Please try later.");
+        }
+    };
+
     // get user's data
     // ? needs optimization if we don't need the whole data
     useEffect(() => {
         const getUserData = async () => {
             const userData = await getUser(uid);
             setUserData(userData);
-            setName(userData.name)
+            setName(userData.name);
+            setImg(userData.image);
         }
         getUserData();
     },[])
@@ -56,7 +85,18 @@ const Account = ({ visible, setIsLogin }) => {
         <View style={AccountStyle.container} >
             
             <View style={AccountStyle.user} >
-                <Text>Hello {name}</Text>
+                <Text>Hello  {userData ? userData.name : 'My Dear'}</Text>
+                <View>
+                    {!img ? (
+                        <Pressable onPress={pickImage}>
+                            <Text style={{color: '#006cb7'}}>Add Image</Text>
+                        </Pressable>
+                    ) : (
+                        <View>
+                            <Image source={{ uri: img }} style={AccountStyle.image}></Image>
+                        </View>
+                    )}
+                </View>
             </View>
             
             <Choice title="My Orders" icon="orders" onPress={() => router.replace(`account/orders`)}></Choice>
