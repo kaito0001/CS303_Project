@@ -9,7 +9,7 @@ import Buttton from "../../components/buttton/Buttton";
 import { auth } from "../../firebase/config";
 import IconLibrary from '../../components/icons/icons';
 import { addToWishList, deleteWishListItem, getWishList } from "../../firebase/wishlist";
-
+import { addCartItem } from "../../firebase/cart";
 const screenwidth = Dimensions.get('window').width;
 const screenheight = Dimensions.get('window').height;
 
@@ -48,7 +48,8 @@ const Product= ({id}) =>{
     }
     }
   const handleCartPress =async() => {
-      
+      addCartItem(uid, item);
+
   }
 
   const getItem =async() => {

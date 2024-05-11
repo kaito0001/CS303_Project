@@ -62,12 +62,12 @@ const CategoryPage = () => {
         }
     }
 
-    const searchItems = (searchFor) => {
-        const filteredProducts = allProducts.filter((product) => {
-            return product.title.includes(searchFor);
-        });
-        setProducts(filteredProducts);
-    };
+     const searchItems = (searchFor) => {
+    const filteredProducts = allProducts.filter((product) => {
+        return product.title.toLowerCase().includes(searchFor.toLowerCase());
+    });
+    setProducts(filteredProducts);
+};
 
     return (
         <View style={ categoryStyle.inputContainer}>

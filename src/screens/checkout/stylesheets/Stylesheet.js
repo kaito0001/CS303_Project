@@ -17,6 +17,23 @@ const checkOutStyle = StyleSheet.create({
         width : '90%'
         
     },
+        Button2: {
+        padding: 18,
+        borderRadius: 20,
+        alignItems: 'center',
+            width: '80%',
+            borderWidth: 1,
+            borderColor: '#3c43a2',
+            marginTop : 20
+        
+        
+    },
+        ButtonTxT2: {
+        color: '#4a52c8',
+        fontSize: 16,
+        fontWeight: '700',
+        fontFamily: 'sans-serif'
+    },
     img: {
         width: 25,
         height: 25,

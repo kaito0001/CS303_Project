@@ -57,11 +57,8 @@ const FilledCart = () => {
             />
 
             <View style={ filledStyles.pay}>
-            <Pressable style={filledStyles.Button} >
-                <Text style={filledStyles.ButtonTxT}>Pay with raya installments </Text>
-                </Pressable>
-            <Text style={{}}>OR </Text>
-                 <Pressable style={filledStyles.Button2} >
+
+                <Pressable style={filledStyles.Button2} onPress={()=>{router.replace(`checkout`)}}>
                 <Text style={filledStyles.ButtonTxT2}>Proceed to checkout </Text>
                 </Pressable>
 

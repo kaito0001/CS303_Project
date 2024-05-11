@@ -38,7 +38,7 @@ const EmptyCart = () => {
         </View>
         
         <View style={{paddingHorizontal: '6%'}}>
-            <Button title={'Browser Products'} main={true} ></Button>
+            <Button title={'Browser Products'} main={true} onPress={()=>{router.replace(`products`)}}></Button>
         </View>
     </View>
    )}

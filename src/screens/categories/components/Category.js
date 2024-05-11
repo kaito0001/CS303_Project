@@ -10,7 +10,7 @@ const Category = ({ name, img }) => {
             style ={categoryStyle.inputContainer}
             onPress={() => router.replace(`products?categoryName=${name}`)}
         >
-            <Image source={img} style={categoryStyle.img } ></Image>
+            <Image src={img} style={categoryStyle.img } ></Image>
             <Text style={ categoryStyle.text}>{name}</Text>
             <AntDesign name="rightcircleo" size={20} color="black" style={{marginHorizontal : 20} } />
         </Pressable>

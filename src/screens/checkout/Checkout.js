@@ -20,8 +20,8 @@ import checkOutStyle from './stylesheets/Stylesheet';
 import { AntDesign } from '@expo/vector-icons';
 import checked from '../../../assets/checked.png';
 import unchecked from '../../../assets/unchecked.png';
-
-
+import { getCart } from '../../firebase/cart';
+import { addOrder } from '../../firebase/order';
 
 const testAddress = {
     name: 'Sherif Omar',
@@ -38,26 +38,40 @@ const testAddress = {
     addressName: 'Home',
 }
 
-const DATA = [
-    { id : 1,name: "mobile and tablet ", price : 5000   },
-    { id : 2,name: "televisions ",       price : 5000   },
-    { id : 3,name: "large appliances ",  price : 5000  },
-    { id : 4,name: "small appliances ",  price : 5000  },
-    { id : 5,name: "Kitchen Appliances ",price : 5000   },
-];
-const pressed = false;
+
 const Checkout = () => {
     
     const [address, setAddress] = useState([testAddress]);
+    const [pressed, setPressed] = useState(false);
 
 
+    const [cart, setCart] = useState([]);
 
-    // get current user
+    const [order, setOrder] = useState([]);
+
     let uid;
     if ( auth.currentUser ) {
         uid = auth.currentUser.uid;
     }
-    
+
+    useEffect(() => {
+        console.log(uid);
+        fetchcart();
+    }, []);
+
+
+    const fetchcart = async () => {
+        try {
+            const cartData = await getCart(uid);
+            setCart(cartData);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const handleSubmit = () => {
+        
+    }
     
 
     return (
@@ -71,7 +85,7 @@ const Checkout = () => {
                     <View style={{ alignItems: 'center' }}>
                         
                             <Text style={checkOutStyle.text} > Pay with </Text>
-                            <View style={checkOutStyle.pay}>
+                            <Pressable style={checkOutStyle.pay} >
                                 <AntDesign name="pluscircleo" size={20} color="black" />
                                 <Text> Cash </Text>{
                                     (!pressed) ?
@@ -79,7 +93,7 @@ const Checkout = () => {
                                         :<Image source={checked} style={checkOutStyle.img}></Image>
                                         }
                                 
-                            </View>
+                            </Pressable>
                         
                         </View>
                         
@@ -88,22 +102,25 @@ const Checkout = () => {
                             
                             
                             <FlatList
-                                data={DATA}
+                                data={cart}
                                 renderItem={({ item }) => (
                                     <View style ={checkOutStyle.detail}>
-                                        <Text style = {{fontSize : 10 ,margin : 5}}> {item.name}</Text>
-                                        <Text style = {{fontSize : 10,margin : 5}}>{item.price }</Text>
+                                        <Text style = {{fontSize : 10 ,margin : 5 ,width :'75%'}}> {item.title}</Text>
+                                        <Text style = {{fontSize : 10,margin : 5,width :'25%'}}>{item.discount_price }</Text>
                                     </View>
                                 )}
                                 // keyExtractor={(item) => item.id.toString()} // Convert id to string
                             />
                             <View style={checkOutStyle.total}>
                                     
-                                            <Text style = {{fontSize : 15,margin : 5}}> Total Amount</Text>
-                                            <Text style = {{fontSize : 15,margin : 5}}>25000</Text>
+                                            <Text style = {{fontSize : 15,margin : 5 ,width : '75%'}}> Total Amount</Text>
+                                            <Text style = {{fontSize : 15,margin : 5,width : '25%'}}>25000</Text>
                             </View>
                                 
-                        </View>
+                    </View>
+                    <Pressable style={checkOutStyle.Button2} onPress={handleSubmit()}>
+                <Text style={checkOutStyle.ButtonTxT2}> SUBMIT </Text>
+                </Pressable>
 
                 </View>
             </ScrollView>

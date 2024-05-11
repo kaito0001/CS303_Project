@@ -48,7 +48,7 @@ const Cart = () => {
     }
     
 
-    if (cart.length === 0) {
+    if (cart && cart.length === 0) {
         return (
             <View style={ {flex : 1} }>
 
