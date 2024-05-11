@@ -18,9 +18,9 @@ const Page = () => {
 //    functions
     const fetchAsyncStorage = () => {
         if ( uid === undefined ) {
-            router.replace(`cart`);
+            router.replace(`home`);
         } else {
-            router.replace(`cart${uid}`);
+            router.replace(`home${uid}`);
         }
     }
     

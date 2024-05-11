@@ -41,7 +41,7 @@ const Products= () =>{
   
 
   return (
-    <View style={ProductsStyle.Container}>
+    <View style={{flex:1,backgroundColor: '#fafcfb'}}>
 
       <View style={ProductsStyle.header}>
           <Pressable style={{ marginLeft:'3%'}} onPress={()=> router.replace(`home`)} >
