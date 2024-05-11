@@ -15,7 +15,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
-const CartProduct = ({ price , discription, img}) => {
+const CartProduct = ({item}) => {
 
     const [liked, setLiked] = useState(false);
 
@@ -23,16 +23,16 @@ const CartProduct = ({ price , discription, img}) => {
     
     return (
         <View style={productStyle.container} >
-            <View>
+            <View style ={{width:'80%'}}>
                 <Pressable
                     style={{flexDirection : 'row' , marginBottom : 5}}
                 >
-                    <Image src={img} style={productStyle.img}></Image>
+                    <Image src={item.images[0]} style={productStyle.img}></Image>
                     <View style={{justifyContent : 'center'}}>
-                        <Text style={{ fontSize: 10 }}>{discription}</Text>
+                        <Text style={{ fontSize: 10 ,width :'50%'}}>{item.title}</Text>
                         <View style ={{flexDirection : 'row' ,alignItems :'center'}}>
-                        <Text style={productStyle.price}>{price}</Text>
-                            <Text style={productStyle.oldPrice}>{price}</Text>
+                        <Text style={productStyle.price}>{item.discount_price}</Text>
+                            <Text style={productStyle.oldPrice}>{item.price}</Text>
                             </View>
                     </View>
                 </Pressable>
@@ -58,8 +58,8 @@ const CartProduct = ({ price , discription, img}) => {
                     style={productStyle.like}
                 >
                     {(liked) ?
-                        <Image source={like} style={{ width: 25, height: 25 }}></Image>:
-                        <Image source={dislike} style={{ width: 25, height: 25 }}></Image> 
+                        <Image source={like} style={{ width: 25, height: 25 ,marginBottom : 10}}></Image>:
+                        <Image source={dislike} style={{ width: 25, height: 25 ,marginBottom : 10}}></Image> 
                         
                     }
                 </Pressable>
@@ -67,7 +67,7 @@ const CartProduct = ({ price , discription, img}) => {
                 <Pressable
                     style={productStyle.delete}
                     >
-                    <MaterialIcons name="delete" size={20} color="#ff6a5f" />
+                    <MaterialIcons name="delete" size={25} color="#ff6a5f"  />
                 </Pressable>
             </View>
             
